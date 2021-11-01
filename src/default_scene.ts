@@ -1,5 +1,10 @@
 /* #################### IMPORTS #################### */
 // Import from Wolfie2D or your own files here
+import GoapActionExample from "./demos/GoapActionExample";
+import GoapActionPlanner from "./Wolfie2D/AI/GoapActionPlanner";
+import Graph from "./Wolfie2D/DataTypes/Graphs/Graph";
+import GoapAction from "./Wolfie2D/DataTypes/Interfaces/GoapAction";
+import Stack from "./Wolfie2D/DataTypes/Stack";
 import Vec2 from "./Wolfie2D/DataTypes/Vec2";
 import Input from "./Wolfie2D/Input/Input";
 import Graphic from "./Wolfie2D/Nodes/Graphic";
@@ -7,6 +12,7 @@ import { GraphicType } from "./Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Sprite from "./Wolfie2D/Nodes/Sprites/Sprite";
 import Scene from "./Wolfie2D/Scene/Scene";
 import Color from "./Wolfie2D/Utils/Color";
+import GraphUtils from "./Wolfie2D/Utils/GraphUtils";
 
 
 /* #################### CLASS DEFINITION #################### */
@@ -66,6 +72,64 @@ export default class default_scene extends Scene {
 
         // Now, let's change the color of our player
         this.player.color = Color.ORANGE;
+
+        let test: Graph = new Graph(true);
+        let root = test.addNode() -1;
+        let a = test.addNode() - 1;
+        let b = test.addNode() - 1;
+        let c = test.addNode() - 1;
+        let goal = test.addNode() - 1;
+        /*test.addEdge(0, 1, 1);
+        test.addEdge(0, 2, 2);
+        test.addEdge(0, 3, 5);
+
+        test.addEdge(1, 4, 6);
+        test.addEdge(2, 4, 3);
+        test.addEdge(3, 4, 4);*/
+
+        test.addEdge(0, 1, 1);
+        test.addEdge(0, 2, 2);
+        test.addEdge(0, 3, 5);
+
+        test.addEdge(1, 4, 6);
+        test.addEdge(2, 4, 3);
+        test.addEdge(3, 4, 4);
+        test.addEdge(4,4,Number.POSITIVE_INFINITY);
+        
+
+        //test.addEdge(goal, goal, 10);
+
+        console.log(test.getEdges(4));
+        //console.log(test.toString());
+        let short = GraphUtils.djikstra(test, 0);
+        let pathStack = new Stack<number>(5);
+		
+		// Push the final position and the final position in the graph
+		pathStack.push(4);
+
+		// Add all parents along the path
+		let i = 4;
+		while(short[i] !== -1){
+            console.log(short[i]);
+			pathStack.push(short[i]);
+			i = short[i];
+		}
+        console.log(GraphUtils.djikstra(test, 0));
+        console.log(pathStack.toString());
+        
+        let plannerTest: GoapActionPlanner = new GoapActionPlanner();
+        let action1: GoapAction = new GoapActionExample(4, ["start"], ["step1"]);
+        let action2: GoapAction = new GoapActionExample(5, ["step1"], ["step2"]);
+        let action3: GoapAction = new GoapActionExample(6, ["step2"], ["goal"]);
+
+        let action4: GoapAction = new GoapActionExample(7, ["start"], ["step3"]);
+        let action5: GoapAction = new GoapActionExample(1, ["step3"], ["step4"]);
+        let action6: GoapAction = new GoapActionExample(2, ["step4"], ["goal"]);
+
+        let actions = new Array<GoapAction>(action1,action2,action3,action4, action5, action6);
+        let result = plannerTest.plan("goal", actions, ["start"], null);
+        console.log(result.toString());
+
     }
 
     // updateScene() is where you can handle any frame by frame updates to your scene.
