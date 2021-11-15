@@ -19,6 +19,8 @@ import Attack from "./EnemyStates/Attack";
 import Guard from "./EnemyStates/Guard";
 import Patrol from "./EnemyStates/Patrol";
 
+
+//TODO add more comments on enemy updates
 export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
     /** The owner of this AI */
     owner: AnimatedSprite;
@@ -33,7 +35,12 @@ export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
     weapon: Weapon;
 
     /** A reference to the player object */
-    player: GameNode;
+    player1: GameNode;
+
+    /** A reference to the player object */
+    player2: GameNode;
+
+    currentPlayer: GameNode;
 
     retreatPos: Vec2;
 
@@ -50,7 +57,7 @@ export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
     initializeAI(owner: AnimatedSprite, options: Record<string, any>): void {
         this.owner = owner;
 
-        if(options.defaultMode === "guard"){
+        if (options.defaultMode === "guard") {
             // Guard mode
             this.addState(EnemyStates.DEFAULT, new Guard(this, owner, options.guardPosition));
         } else {
@@ -65,7 +72,11 @@ export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
 
         this.weapon = options.weapon;
 
-        this.player = options.player;
+        this.player1 = options.player1;
+
+        this.player2 = options.player2;
+
+        this.currentPlayer = options.player1;
 
         this.inRange = options.inRange;
 
@@ -95,25 +106,27 @@ export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
     damage(damage: number): void {
         console.log("Took damage");
         this.health -= damage;
-    
-        if (this.health <= 2){
+
+        if (this.health <= 2) {
             this.currentStatus.push("LOW_HEALTH");
-            this.path = this.owner.getScene().getNavigationManager().getPath(hw3_Names.NAVMESH, this.owner.position, this.retreatPos)
+            this.path = this.owner.getScene().getNavigationManager().getPath(hw3_Names.NAVMESH, this.owner.position, this.retreatPos);
         }
-        if(this.health <= 0){
+        if (this.health <= 0) {
             this.owner.setAIActive(false, {});
             this.owner.isCollidable = false;
             this.owner.visible = false;
+            this.weapon.assets.forEach(e => e.destroy())
 
-            if(Math.random() < 0.2){
+            this.emitter.fireEvent("enemyDied", {enemy: this.owner})
+
+            if (Math.random() < 0.2) {
                 // Spawn a healthpack
-                this.emitter.fireEvent("healthpack", {position: this.owner.position});
+                this.emitter.fireEvent("healthpack", { position: this.owner.position });
             }
         }
     }
-
-    getPlayerPosition(): Vec2 {
-        let pos = this.player.position;
+    isPlayerVisible(pos: Vec2): Vec2{
+        //let pos = this.player1.position;
 
         // Get the new player location
         let start = this.owner.position.clone();
@@ -133,18 +146,18 @@ export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
 
         let tileSize = walls.getTileSize();
 
-        for(let col = minIndex.x; col <= maxIndex.x; col++){
-            for(let row = minIndex.y; row <= maxIndex.y; row++){
-                if(walls.isTileCollidable(col, row)){
+        for (let col = minIndex.x; col <= maxIndex.x; col++) {
+            for (let row = minIndex.y; row <= maxIndex.y; row++) {
+                if (walls.isTileCollidable(col, row)) {
                     // Get the position of this tile
-                    let tilePos = new Vec2(col * tileSize.x + tileSize.x/2, row * tileSize.y + tileSize.y/2);
+                    let tilePos = new Vec2(col * tileSize.x + tileSize.x / 2, row * tileSize.y + tileSize.y / 2);
 
                     // Create a collider for this tile
-                    let collider = new AABB(tilePos, tileSize.scaled(1/2));
+                    let collider = new AABB(tilePos, tileSize.scaled(1 / 2));
 
                     let hit = collider.intersectSegment(start, delta, Vec2.ZERO);
 
-                    if(hit !== null && start.distanceSqTo(hit.pos) < start.distanceSqTo(pos)){
+                    if (hit !== null && start.distanceSqTo(hit.pos) < start.distanceSqTo(pos)) {
                         // We hit a wall, we can't see the player
                         return null;
                     }
@@ -152,13 +165,57 @@ export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
             }
         }
 
-        this.retreatPos = new Vec2(pos.x + this.owner.position.x + 100, this.owner.position.y - pos.y - 100);
-        console.log(pos.toString())
+        //this.retreatPos = new Vec2(pos.x + this.owner.position.x + 100, this.owner.position.y - pos.y - 100);
+        //console.log(pos.toString())
         return pos;
     }
 
-    // State machine defers updates and event handling to its children
-    // Check super classes for details
+    getPlayerPosition(): Vec2 {
+        let pos = this.player1.position;
+        let position1 = this.isPlayerVisible(pos);
+        
+
+        pos = this.player2.position;
+        let position2 = this.isPlayerVisible(pos);
+
+        if (position1 == null && position2 == null){
+            return null;
+        }
+        else if (position1 == null){
+            this.currentPlayer = this.player2;
+            this.retreatPos = new Vec2(position2.x + this.owner.position.x + 100, this.owner.position.y - position2.y - 100);
+            return position2;
+        }
+        else if (position2 == null){
+            this.currentPlayer = this.player1;
+            this.retreatPos = new Vec2(position1.x + this.owner.position.x + 100, this.owner.position.y - position1.y - 100);
+            return position1;
+        }
+
+        //√[(x₂ - x₁)² + (y₂ - y₁)²]
+        
+        let distance1 = Math.sqrt(Math.pow(this.owner.position.x - position1.x, 2) + Math.pow(this.owner.position.y - position1.y, 2));
+        let distance2 = Math.sqrt(Math.pow(this.owner.position.x - position2.x, 2) + Math.pow(this.owner.position.y - position2.y, 2));
+        if (distance1 < distance2){
+            this.currentPlayer = this.player1;
+            this.retreatPos = new Vec2(position1.x + this.owner.position.x + 100, this.owner.position.y - position1.y - 100);
+            return position1;
+        }
+        else{
+            this.currentPlayer = this.player2;
+            this.retreatPos = new Vec2(position2.x + this.owner.position.x + 100, this.owner.position.y - position2.y - 100);
+            return position2;
+        }
+    }
+
+    update(deltaT: number){
+        super.update(deltaT);
+
+        if (this.plan.isEmpty()) {
+            //get a new plan
+            this.plan = this.planner.plan("GOAL", this.possibleActions, this.currentStatus, null);
+        }
+    }
 }
 
 export enum EnemyStates {

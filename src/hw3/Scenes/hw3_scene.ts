@@ -6,7 +6,7 @@ import { GraphicType } from "../../Wolfie2D/Nodes/Graphics/GraphicTypes";
 import OrthogonalTilemap from "../../Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 import PositionGraph from "../../Wolfie2D/DataTypes/Graphs/PositionGraph";
 import Navmesh from "../../Wolfie2D/Pathfinding/Navmesh";
-import {hw3_Names} from "../hw3_constants";
+import {hw3_Events, hw3_Names} from "../hw3_constants";
 import EnemyAI from "../AI/EnemyAI";
 import WeaponType from "../GameSystems/items/WeaponTypes/WeaponType";
 import RegistryManager from "../../Wolfie2D/Registry/RegistryManager";
@@ -25,10 +25,17 @@ import GameOver from "./GameOver";
 import AttackAction from "../AI/EnemyActions/AttackAction";
 import Move from "../AI/EnemyActions/Move";
 import Retreat from "../AI/EnemyActions/Retreat";
+import { TweenableProperties } from "../../Wolfie2D/Nodes/GameNode";
+import Line from "../../Wolfie2D/Nodes/Graphics/Line";
+import { EaseFunctionType } from "../../Wolfie2D/Utils/EaseFunctions";
 
+
+//TODO: ADD MORE COMMENTS, particulary describing the two player interface and the enemy goap AI creation
 export default class hw3_scene extends Scene {
     // The player
     private player: AnimatedSprite;
+
+    private playerCharacters: Array<AnimatedSprite>;
 
     // A list of enemies
     private enemies: Array<AnimatedSprite>;
@@ -46,12 +53,13 @@ export default class hw3_scene extends Scene {
     private battleManager: BattleManager;
 
     // Player health
-    private healthDisplay: Label;
+    private healthDisplays: Array<Label>;
 
     loadScene(){
         // Load the player and enemy spritesheets
         this.load.spritesheet("player", "hw3_assets/spritesheets/player.json");
         this.load.spritesheet("enemy", "hw3_assets/spritesheets/enemy.json");
+        this.load.spritesheet("slice", "hw3_assets/spritesheets/slice.json");
 
         // Load the tilemap
         // HOMEWORK 3 - TODO
@@ -74,6 +82,10 @@ export default class hw3_scene extends Scene {
         // Load the healthpack sprite
         this.load.image("healthpack", "hw3_assets/sprites/healthpack.png");
         this.load.image("inventorySlot", "hw3_assets/sprites/inventory.png");
+        this.load.image("knife", "hw3_assets/sprites/knife.png");
+        this.load.image("laserGun", "hw3_assets/sprites/laserGun.png");
+        this.load.image("pistol", "hw3_assets/sprites/pistol.png");
+        
     }
 
     startScene(){
@@ -124,11 +136,13 @@ export default class hw3_scene extends Scene {
         this.initializeEnemies();
 
         // Send the player and enemies to the battle manager
-        this.battleManager.setPlayer(<BattlerAI>this.player._ai);
+        this.battleManager.setPlayers([<BattlerAI>this.playerCharacters[0]._ai, <BattlerAI>this.playerCharacters[1]._ai]);
         this.battleManager.setEnemies(this.enemies.map(enemy => <BattlerAI>enemy._ai));
 
         // Subscribe to relevant events
         this.receiver.subscribe("healthpack");
+        this.receiver.subscribe("enemyDied");
+        this.receiver.subscribe(hw3_Events.UNLOAD_ASSET);
 
         // Spawn items into the world
         this.spawnItems();
@@ -136,8 +150,12 @@ export default class hw3_scene extends Scene {
         // Add a UI for health
         this.addUILayer("health");
 
-        this.healthDisplay = <Label>this.add.uiElement(UIElementType.LABEL, "health", {position: new Vec2(200, 16), text: "Health: " + (<BattlerAI>this.player._ai).health});
-        this.healthDisplay.textColor = Color.WHITE;
+        this.healthDisplays = new Array(2);
+        this.healthDisplays[0] = <Label>this.add.uiElement(UIElementType.LABEL, "health", {position: new Vec2(70, 16), text: "Health: " + (<BattlerAI>this.playerCharacters[0]._ai).health});
+        this.healthDisplays[0].textColor = Color.WHITE;
+
+        this.healthDisplays[1] = <Label>this.add.uiElement(UIElementType.LABEL, "health", {position: new Vec2(70, 32), text: "Health: " + (<BattlerAI>this.playerCharacters[1]._ai).health});
+        this.healthDisplays[1].textColor = Color.WHITE;
     }
 
     updateScene(deltaT: number): void {
@@ -147,21 +165,79 @@ export default class hw3_scene extends Scene {
             if(event.isType("healthpack")){
                 this.createHealthpack(event.data.get("position"));
             }
+            if(event.isType("enemyDied")){
+                console.log(this.enemies);
+                this.enemies = this.enemies.filter(enemy => enemy !== event.data.get("enemy"));
+                console.log(this.enemies);
+                console.log("HERE");
+                this.battleManager.enemies = this.battleManager.enemies.filter(enemy => enemy !== <BattlerAI>(event.data.get("enemy")._ai));
+            }
+            if(event.isType(hw3_Events.UNLOAD_ASSET)){
+                console.log(event.data);
+                let asset = this.sceneGraph.getNode(event.data.get("node"));
+
+                asset.destroy();
+            }
         }
 
-        let health = (<BattlerAI>this.player._ai).health;
+        let health1 = (<BattlerAI>this.playerCharacters[0]._ai).health;
+        let health2 = (<BattlerAI>this.playerCharacters[1]._ai).health;
 
-        if(health === 0){
+        if(health1 === 0 || health2 === 0){
             this.sceneManager.changeToScene(GameOver);
         }
 
+        let closetEnemy1 = this.getClosestEnemy(this.playerCharacters[0].position, (<PlayerController>this.playerCharacters[0]._ai).range);
+        let closetEnemy2 = this.getClosestEnemy(this.playerCharacters[1].position, (<PlayerController>this.playerCharacters[1]._ai).range);
+
+        (<PlayerController>this.playerCharacters[0]._ai).target = closetEnemy1;
+        (<PlayerController>this.playerCharacters[1]._ai).target = closetEnemy2;
+
         // Update health gui
-        this.healthDisplay.text = "Health: " + health;
+        this.healthDisplays[0].text = "Health: " + health1;
+        this.healthDisplays[1].text = "Health: " + health2;
 
         // Debug mode graph
         if(Input.isKeyJustPressed("g")){
             this.getLayer("graph").setHidden(!this.getLayer("graph").isHidden());
         }
+        
+        if(Input.isKeyJustPressed("z")){
+            (<PlayerController>this.playerCharacters[0]._ai).inputEnabled = true;
+            (<PlayerController>this.playerCharacters[1]._ai).inputEnabled = false;
+            (<PlayerController>this.playerCharacters[0]._ai).inventory.setActive(true);
+            (<PlayerController>this.playerCharacters[1]._ai).inventory.setActive(false);
+            this.player = this.playerCharacters[0];
+            this.viewport.follow(this.player);
+            //health = (<BattlerAI>this.player._ai).health;
+        }
+
+        if(Input.isKeyJustPressed("x")){
+            (<PlayerController>this.playerCharacters[1]._ai).inputEnabled = true;
+            (<PlayerController>this.playerCharacters[0]._ai).inputEnabled = false;
+            (<PlayerController>this.playerCharacters[1]._ai).inventory.setActive(true);
+            (<PlayerController>this.playerCharacters[0]._ai).inventory.setActive(false);
+            this.player = this.playerCharacters[1];
+            this.viewport.follow(this.player);
+            //health = (<BattlerAI>this.player._ai).health;
+        }
+    }
+
+    getClosestEnemy(playerPos: Vec2, range: number): Vec2 {
+        let closetDistance: number = Number.POSITIVE_INFINITY;
+        let closetEnemy: Vec2 = null;
+        for (let enemy of this.enemies){
+            let distance = Math.sqrt(Math.pow(enemy.position.x - playerPos.x, 2) + Math.pow(enemy.position.y - playerPos.y, 2));
+            if (distance <= range){
+                console.log("Closet enemeny " + distance)
+                if (distance < closetDistance){
+                    closetDistance = distance;
+                    closetEnemy = enemy.position;
+                    console.log("Closet enemeny" + closetEnemy.toString())
+                }
+            }
+        }
+        return closetEnemy;
     }
 
     // HOMEWORK 3 - TODO
@@ -251,21 +327,45 @@ export default class hw3_scene extends Scene {
 
     initializePlayer(): void {
         // Create the inventory
-        let inventory = new InventoryManager(this, 2, "inventorySlot", new Vec2(16, 16), 4);
+        let inventory = new InventoryManager(this, 2, "inventorySlot", new Vec2(16, 16), 4, "slots1", "items1");
         let startingWeapon = this.createWeapon("knife");
         inventory.addItem(startingWeapon);
 
-        // Create the player
-        this.player = this.add.animatedSprite("player", "primary");
-        this.player.position.set(2*16, 62*16);
-        this.player.addPhysics(new AABB(Vec2.ZERO, new Vec2(5, 5)));
-        this.player.addAI(PlayerController,
+        // Create the players
+        this.playerCharacters = Array(2);
+        this.playerCharacters[0] = this.add.animatedSprite("player", "primary");
+        this.playerCharacters[0].position.set(4*16, 62*16);
+        this.playerCharacters[0].addPhysics(new AABB(Vec2.ZERO, new Vec2(5, 5)));
+        this.playerCharacters[0].addAI(PlayerController,
             {
                 speed: 100,
                 inventory: inventory,
-                items: this.items
+                items: this.items,
+                inputEnabled: true,
+                range: 30
             });
-        this.player.animation.play("IDLE");
+        this.playerCharacters[0].animation.play("IDLE");
+
+        inventory = new InventoryManager(this, 2, "inventorySlot", new Vec2(16, 32), 4, "slots2", "items2");
+        startingWeapon = this.createWeapon("weak_pistol");
+        inventory.addItem(startingWeapon);
+
+        this.playerCharacters[1] = this.add.animatedSprite("player", "primary");
+        this.playerCharacters[1].position.set(2*16, 62*16);
+        this.playerCharacters[1].addPhysics(new AABB(Vec2.ZERO, new Vec2(5, 5)));
+        this.playerCharacters[1].addAI(PlayerController,
+            {
+                speed: 100,
+                inventory: inventory,
+                items: this.items,
+                inputEnabled: false,
+                range: 100
+            });
+        this.playerCharacters[1].animation.play("IDLE");
+
+        this.player = this.playerCharacters[0];
+        (<PlayerController>this.playerCharacters[0]._ai).inventory.setActive(true);
+        (<PlayerController>this.playerCharacters[1]._ai).inventory.setActive(false);
     }
 
     // HOMEWORK 3 - TODO
@@ -357,11 +457,14 @@ export default class hw3_scene extends Scene {
             let statusArray: Array<string> = [];
             let action1 = new AttackAction(3, ["IN_RANGE"], ["GOAL"]);
             let action2: Move;
+            let range: number;
             if (i % 2 === 0){
-                action2 = new Move(2, [], ["IN_RANGE"], {inRange: 100});
+                range = 100;
+                action2 = new Move(2, [], ["IN_RANGE"], {inRange: range});
             }
             else {
-                action2 = new Move(2, [], ["IN_RANGE"], {inRange: 20});
+                range = 20;
+                action2 = new Move(2, [], ["IN_RANGE"], {inRange: range});
             }
             let action3: Retreat;
             if (i % 2 === 0){
@@ -384,11 +487,13 @@ export default class hw3_scene extends Scene {
                 patrolRoute: data.route,            // This only matters if they're a patroller
                 guardPosition: data.guardPosition,  // This only matters if the're a guard
                 health: data.health,
-                player: this.player,
+                player1: this.playerCharacters[0],
+                player2: this.playerCharacters[1],
                 weapon: wep,
                 goal: "GOAL",
                 status: statusArray,
-                actions: [action1, action2, action3]
+                actions: [action1, action2, action3],
+                inRange: range
             }
 
             this.enemies[i].addAI(EnemyAI, enemyOptions);

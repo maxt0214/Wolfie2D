@@ -18,7 +18,7 @@ export default class InventoryManager {
     private itemLayer: string;
     private selectedSlot: Rect;
 
-    constructor(scene: Scene, size: number, inventorySlot: string, position: Vec2, padding: number){
+    constructor(scene: Scene, size: number, inventorySlot: string, position: Vec2, padding: number, slotLayer: string, itemLayer: string){
         this.items = new Array(size);
         this.inventorySlots = new Array(size);
         this.padding = padding;
@@ -26,9 +26,9 @@ export default class InventoryManager {
         this.currentSlot = 0;
 
         // Add layers
-        this.slotLayer = "slots";
+        this.slotLayer = slotLayer;
         scene.addUILayer(this.slotLayer).setDepth(100);
-        this.itemLayer = "items";
+        this.itemLayer = itemLayer;
         scene.addUILayer(this.itemLayer).setDepth(101);
 
         // Create the inventory slots
@@ -44,7 +44,7 @@ export default class InventoryManager {
         }
 
         // Add a rect for the selected slot
-        this.selectedSlot = <Rect>scene.add.graphic(GraphicType.RECT, "slots", {position: this.position.clone(), size: this.slotSize.clone().inc(-2)});
+        this.selectedSlot = <Rect>scene.add.graphic(GraphicType.RECT, slotLayer, {position: this.position.clone(), size: this.slotSize.clone().inc(-2)});
         this.selectedSlot.color = Color.WHITE;
         this.selectedSlot.color.a = 0.2;
     }
@@ -98,6 +98,15 @@ export default class InventoryManager {
             return item;
         } else {
             return null;
+        }
+    }
+
+    setActive(active: boolean) {
+        if (active){
+            this.inventorySlots.forEach(slot => slot.alpha = 1.0);
+        }
+        else{
+            this.inventorySlots.forEach(slot => slot.alpha = 0.5);
         }
     }
 }

@@ -7,6 +7,7 @@ import OrthogonalTilemap from "../../../../Wolfie2D/Nodes/Tilemaps/OrthogonalTil
 import Scene from "../../../../Wolfie2D/Scene/Scene";
 import Color from "../../../../Wolfie2D/Utils/Color";
 import { EaseFunctionType } from "../../../../Wolfie2D/Utils/EaseFunctions";
+import { hw3_Events } from "../../../hw3_constants";
 import WeaponType from "./WeaponType";
 
 export default class LaserGun extends WeaponType {
@@ -80,7 +81,8 @@ export default class LaserGun extends WeaponType {
                     end: 0,
                     ease: EaseFunctionType.OUT_SINE
                 }
-            ]
+            ],
+            onEnd: hw3_Events.UNLOAD_ASSET
         });
 
         return [line];

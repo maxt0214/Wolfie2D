@@ -3,5 +3,6 @@ export enum hw3_Names {
 }
 
 export enum hw3_Events {
-    SHOT_FIRED = "SHOT_FIRED"
+    SHOT_FIRED = "SHOT_FIRED",
+    UNLOAD_ASSET = "UNLOAD_ASSET"
 }

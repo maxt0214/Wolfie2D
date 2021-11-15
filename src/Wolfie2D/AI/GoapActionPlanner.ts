@@ -6,7 +6,7 @@ import Stack from "../DataTypes/Stack";
 import GraphUtils from "../Utils/GraphUtils";
 
 export default class GoapActionPlanner {
-    //TODO - Implement this fully
+    //TODO - Elaborate on all steps of planner more thoroughly
     mapping: Map<number,GoapAction | string>;
     graph: Graph;
     path: Array<number>;

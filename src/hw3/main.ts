@@ -1,4 +1,4 @@
-import Game from "./Wolfie2D/Loop/Game";
+/*import Game from "./Wolfie2D/Loop/Game";
 import hw3_scene from "./hw3/Scenes/hw3_scene";
 import RegistryManager from "./Wolfie2D/Registry/RegistryManager";
 import WeaponTemplateRegistry from "./hw3/Registry/WeaponRegistry";
@@ -42,4 +42,4 @@ import MainMenu from "./hw3/Scenes/MainMenu";
     game.start(MainMenu, {});
 })();
 
-function runTests(){};
+function runTests(){};*/

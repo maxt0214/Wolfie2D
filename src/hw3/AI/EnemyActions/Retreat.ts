@@ -7,16 +7,13 @@ import NavigationPath from "../../../Wolfie2D/Pathfinding/NavigationPath";
 import { hw3_Names } from "../../hw3_constants";
 import EnemyAI from "../EnemyAI";
 
-export default class Retreat implements GoapAction {
-    cost: number;
-    preconditions: Array<string>;
-    effects: Array<string>;
-    loopAction: boolean;
-
+//TODO elaborate a bit more on actions
+export default class Retreat extends GoapAction {
     private path: NavigationPath;
     protected emitter: Emitter;
-    
+
     constructor(cost: number, preconditions: Array<string>, effects: Array<string>, options?: Record<string, any>) {
+        super();
         this.cost = cost;
         this.preconditions = preconditions;
         this.loopAction = true;
@@ -24,12 +21,11 @@ export default class Retreat implements GoapAction {
     }
 
     performAction(statuses: Array<string>, actor: StateMachineGoapAI, deltaT: number, target?: StateMachineGoapAI): Array<string> {
-        if (this.checkPreconditions(statuses)){
+        if (this.checkPreconditions(statuses)) {
             let enemy = <EnemyAI>actor;
-            if (enemy.owner.position.x > enemy.retreatPos.x && enemy.owner.position.y > enemy.retreatPos.y){
+            if (enemy.owner.position.x > enemy.retreatPos.x && enemy.owner.position.y > enemy.retreatPos.y) {
                 return this.effects;
             }
-            console.log("RETREAT")
             this.path = enemy.owner.getScene().getNavigationManager().getPath(hw3_Names.NAVMESH, enemy.owner.position, enemy.retreatPos);
             enemy.owner.moveOnPath(enemy.speed * deltaT, this.path);
 
@@ -38,48 +34,10 @@ export default class Retreat implements GoapAction {
         return this.effects;
     }
 
-    checkPreconditions(statuses: Array<string>): boolean {
-        //if (statuses.length <= this.preconditions.length) {
-            // Check that every element in the preconditions array is found in the statuses array
-            return (this.preconditions.every((status) => {
-                if (!statuses.includes(status)){
-                    return false;
-                }
-                return true;
-            }));
-            return true;
-        //}
-        return false;
-    }
+    updateCost(options: Record<string, number>): void {}
 
-    addPrecondition(preconditions: string | string[]): void {
-        this.preconditions.push(...preconditions);
-    }
-
-    addEffect(effects: string | string[]): void {
-        this.effects.push(...effects);
-    }
-
-    removePrecondition(precondition: string): boolean {
-        throw new Error("Method not implemented.");
-    }
-    removeEffect(effect: string): boolean {
-        throw new Error("Method not implemented.");
-    }
-
-    updateCost(options: Record<string, number>): void {
-        //For example, lets say the options send in a unit's attack damage, higher attack damage lowers the cost to incentive using the move more
-        if (options.attack > 10) {
-            this.cost-=3;
-        }
-        else if (options.attack < 3){
-            this.cost+=3;
-        }
-        //Leave default if in between range of 3 and 10
-
-    }
-    toString(): string{
+    toString(): string {
         return "ACTION PRECON: " + this.preconditions.toString() + ", ACTION EFFECTS: " + this.effects.toString() + ", ACTION COST: " + this.cost;
     }
-    
+
 }

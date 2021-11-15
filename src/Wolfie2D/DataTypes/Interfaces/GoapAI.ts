@@ -10,17 +10,19 @@ import Updateable from "./Updateable";
  * Defines a controller for a bot or a human. Must be able to update
  */
 export default interface GoapAI extends Updateable {
-    /** TODO: Implement some of these? Clarify method names and calling for controllor, 
-     * aka have a method to handle dedicated GOAP functionalit
-     * y and initlaization and one that is manually implemented */
+    /** Current goal of the AI */
     goal: string;
 
+    /** All current statuses this AI has */
     currentStatus: Array<string>;
 
+    /** All possible actions that can be carried out */
     possibleActions: Array<GoapAction>;
 
+    /** Current actions to be carried out */
     plan: Stack<GoapAction>;
     
+    /** Once we have no actions, the planner can be called to find a new sequence of actions */
     planner: GoapActionPlanner;
 
     /** Clears references from to the owner */
@@ -32,11 +34,9 @@ export default interface GoapAI extends Updateable {
     /** Handles events from the Actor */
     handleEvent(event: GameEvent): void;
 
-    //initializeAI(owner:GameNode, goal:string, status:Array<string>, actions: Array<GoapAction>): void
-
+    /** Initializes the AI with the actor and any additional config */
     initializeAI(owner:GameNode, options: Record<string, any>): void
 
+    /** Change the goal to a new goal */
     changeGoal(goal: string): void
-
-    addStatus(status: string): void
 }

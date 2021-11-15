@@ -8,6 +8,7 @@ import { hw3_Names } from "../../hw3_constants";
 import EnemyAI, { EnemyStates } from "../EnemyAI";
 import EnemyState from "./EnemyState";
 
+//TODO probably rename this class and fix it up, add comments, etc.
 export default class Attack extends EnemyState {
     // Timers for managing this state
     pollTimer: Timer;
@@ -23,7 +24,7 @@ export default class Attack extends EnemyState {
     // The return object for this state
     retObj: Record<string, any>;
 
-    constructor(parent: EnemyAI, owner: GameNode){
+    constructor(parent: EnemyAI, owner: GameNode) {
         super(parent, owner);
 
         // Regularly update the player location
@@ -40,11 +41,11 @@ export default class Attack extends EnemyState {
         // Reset the return object
         this.retObj = {};
 
-       this.alertTimer.start();
-        this.parent.path = this.owner.getScene().getNavigationManager().getPath(hw3_Names.NAVMESH, this.owner.position, this.lastPlayerPos);
+        this.alertTimer.start();
+        this.parent.path = this.owner.getScene().getNavigationManager().getPath(hw3_Names.NAVMESH, this.owner.position, this.lastPlayerPos, true);
     }
 
-    handleInput(event: GameEvent): void {}
+    handleInput(event: GameEvent): void { }
 
     update(deltaT: number): void {
         /*if(this.pollTimer.isStopped()){
@@ -84,64 +85,63 @@ export default class Attack extends EnemyState {
                 this.finished(EnemyStates.DEFAULT);
             }
         }*/
-        if(this.pollTimer.isStopped()){
+        if (this.pollTimer.isStopped()) {
             // Restart the timer
             this.pollTimer.start();
 
             this.playerPos = this.parent.getPlayerPosition();
 
-            if(this.playerPos !== null){
+            if (this.playerPos !== null) {
                 // If we see a new player position, update the last position
+                this.parent.path = this.owner.getScene().getNavigationManager().getPath(hw3_Names.NAVMESH, this.owner.position, this.lastPlayerPos, true);
                 this.lastPlayerPos = this.playerPos;
                 this.exitTimer.start();
             }
         }
 
-        if(this.exitTimer.isStopped()){
+        if (this.exitTimer.isStopped()) {
             // We haven't seen the player in a while, go check out where we last saw them, if possible
-            if(this.lastPlayerPos !== null){
-                this.retObj = {target: this.lastPlayerPos}
+            if (this.lastPlayerPos !== null) {
+                this.retObj = { target: this.lastPlayerPos }
                 this.finished(EnemyStates.ALERT);
             } else {
                 this.finished(EnemyStates.DEFAULT);
             }
         }
 
-        if(this.alertTimer.isStopped()){
+        if (this.alertTimer.isStopped()) {
             // The timer is up, return to the default state
             this.alertTimer.start();
-            this.parent.path = this.owner.getScene().getNavigationManager().getPath(hw3_Names.NAVMESH, this.owner.position, this.lastPlayerPos);
+            //this.parent.path = this.owner.getScene().getNavigationManager().getPath(hw3_Names.NAVMESH, this.owner.position, this.lastPlayerPos, true);
         }
 
-        if (this.playerPos !== null){
-        let diffX = Math.abs(this.owner.position.x - this.playerPos.x)
-        let diffY = Math.abs(this.owner.position.y - this.playerPos.y)
-        if (diffX > this.parent.inRange && diffY > this.parent.inRange){
-            let index = this.parent.currentStatus.indexOf("IN_RANGE");
-            if (index != -1){
-                this.parent.currentStatus.splice(index, 1);
+        if (this.playerPos !== null) {
+            let distance = this.owner.position.distanceTo(this.playerPos);
+            if (distance > this.parent.inRange) {
+                console.log("NOT IN RANGE");
+                let index = this.parent.currentStatus.indexOf("IN_RANGE");
+                if (index != -1) {
+                    this.parent.currentStatus.splice(index, 1);
+                    console.log("NOT IN RANGE");
+                }
             }
         }
-    }
 
-        if (this.parent.plan.isEmpty()){
-            //get a new plan
-            this.parent.plan = this.parent.planner.plan("GOAL", this.parent.possibleActions, this.parent.currentStatus, null);
-        }
         let nextAction = this.parent.plan.peek();
         let result = nextAction.performAction(this.parent.currentStatus, this.parent, deltaT);
-        if (result !== null){
+        if (result !== null) {
             //action was successful
-            if (result.includes("GOAL")){
-                this.parent.currentStatus = [];
+            if (result.includes("GOAL")) {
+                //this.parent.currentStatus = [];
+                //this.parent.currentStatus.slice()
             }
             else {
-                this.parent.currentStatus = result;
+                this.parent.currentStatus = this.parent.currentStatus.concat(...result);
             }
             this.parent.plan.pop();
         }
-        else{
-            if (!nextAction.loopAction){
+        else {
+            if (!nextAction.loopAction) {
                 this.parent.plan.pop();
             }
         }

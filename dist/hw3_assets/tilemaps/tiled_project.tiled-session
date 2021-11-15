@@ -1,0 +1,369 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_HW4/GameEngine/dist/hw4_assets/tilemaps/level1.json",
+    "expandedProjectPaths": [
+        "C:/Users/Zachary Grandison/Documents/TiledTileStuff/Combo1"
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/TiledSharp-MonoGame-Example-master/TiledSharp MonoGame Example/Content/exampleMap.tmx": {
+            "scale": 1.52890625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 128.19621870209505,
+                "y": 183.4644864588656
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/TiledSharp-MonoGame-Example-master/TiledSharp MonoGame Example/Content/exampleMap.tmx#exampleTileset": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/tile/tile/Content/pixelPack3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/tile/tile/Content/pixelPackMap2.tmx": {
+            "scale": 2.196875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 119.03271692745378,
+                "y": 30.042674253200573
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/tile/tile/bin/Debug/netcoreapp3.1/Content/exampleMap.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 124,
+                "y": 163.33333333333331
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/tile/tile/bin/Debug/netcoreapp3.1/Content/exampleMap.tmx#exampleTileset": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/tile/tile/bin/Debug/netcoreapp3.1/Content/pixelPack3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/tile/tile/bin/Debug/netcoreapp3.1/Content/pixelPackMap2.tmx": {
+            "scale": 2.196875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 134.28165007112375,
+                "y": 140.6543385490754
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/tile/tile/bin/Debug/netcoreapp3.1/pixelPack3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/tile/tile/pixelPack3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/why3/why3/Content/[A]Dirt_pipo.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/why3/why3/Content/[A]Flower_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/why3/why3/Content/[A]Grass_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/why3/why3/Content/[A]WaterFall_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/why3/why3/Content/[A]Water_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/why3/why3/Content/pixelPack3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/why3/why3/Content/pixelPackMap2.tmx": {
+            "scale": 0.7998161764705882,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 584.5093082050104,
+                "y": 467.60744656400834
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/why3/why3/Content/samplemap.tmx": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 959.875,
+                "y": 959.75
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/why3/why3/Content/samplemap.tmx#[Base]BaseChip_pipo": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/2D MonoGame/why3/why3/pixelPack3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level1.json": {
+            "scale": 0.33,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 2046.969696969697,
+                "y": 642.4242424242424
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level1.json#cavemap": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level1.json#cavetile": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level2.json": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2046,
+                "y": 640
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level2.json#cavemap": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level2.json#cavetile": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level3.json": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2046,
+                "y": 640
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level3.json#cavemap": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level3.json#cavetile": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level4.json": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1668,
+                "y": 56
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level4.json#cavemap": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level4.json#cavetile": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level5.json": {
+            "scale": 0.22056884765624998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2046.9799103436828,
+                "y": 643.7899164314574
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level5.json#cavemap": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level5.json#cavetile": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level8.json": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2044,
+                "y": 2048
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level8.json#cavemap": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level8.json#cavetile": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/testing.json": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2236,
+                "y": -80
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/testing.json#cavemap": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/testing.json#cavetile": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_HW4/GameEngine/dist/hw4_assets/tilemaps/level1.json": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 227.83333333333331,
+                "y": 212.33333333333331
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_HW4/GameEngine/dist/hw4_assets/tilemaps/level1.json#platformer_tileset": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/cse380_hw3_tilemapOLD.tmx": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 357.5,
+                "y": 198
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/cse380_hw3_tilemapOLD.tmx#cse320_hw3_tiles2": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/CSE 380/cse380_hw3_tilemapOLD.tmx#cse380_tilesource3": {
+            "scaleInDock": 4
+        },
+        "C:/Users/Zachary Grandison/Documents/TiledTileStuff/Combo1/rpgtilemap.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 224.99999999999997,
+                "y": 351.33333333333337
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/TiledTileStuff/Combo1/rpgtileset.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1.5
+        },
+        "C:/Users/Zachary Grandison/Documents/TiledTileStuff/Maps/pixelPackMap.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1948,
+                "y": 1480
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/TiledTileStuff/Maps/pixelPackMap2.tmx": {
+            "scale": 1.438970588235294,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 100.0715380684722,
+                "y": 144.54777721001537
+            }
+        },
+        "C:/Users/Zachary Grandison/Documents/TiledTileStuff/pixelPack.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/TiledTileStuff/pixelPack2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Zachary Grandison/Documents/TiledTileStuff/pixelPack3.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Zachary Grandison/Downloads/assets-6a3b3a06d9df585805d29f6f45628bcd/tiled/[A]Flower_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Downloads/assets-6a3b3a06d9df585805d29f6f45628bcd/tiled/[A]Grass_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Downloads/assets-6a3b3a06d9df585805d29f6f45628bcd/tiled/[A]WaterFall_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Downloads/assets-6a3b3a06d9df585805d29f6f45628bcd/tiled/[A]Water_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Zachary Grandison/Downloads/assets-6a3b3a06d9df585805d29f6f45628bcd/tiled/samplemap.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1027.6666666666665,
+                "y": 977.3333333333333
+            }
+        },
+        "C:/Users/Zachary Grandison/Downloads/assets-6a3b3a06d9df585805d29f6f45628bcd/tiled/samplemap.tmx#[Base]BaseChip_pipo": {
+            "scaleInDock": 1
+        },
+        "cse320_hw3_tileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        },
+        "cse380_hw3_navmeshStuff.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 511.3333333333333,
+                "y": 510.6666666666667
+            }
+        },
+        "cse380_hw3_navmeshStuff.tmx#cse320_hw3_tiles2": {
+            "scaleInDock": 2
+        },
+        "cse380_hw3_navmeshStuff.tmx#cse380_tilesource3": {
+            "scaleInDock": 4
+        },
+        "cse380_hw3_tilemap.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 511.5,
+                "y": 512
+            }
+        },
+        "cse380_hw3_tilemap.tmx#cse320_hw3_tiles2": {
+            "scaleInDock": 2
+        },
+        "cse380_hw3_tilemap.tmx#cse380_tilesource2": {
+            "scaleInEditor": 3
+        },
+        "cse380_hw3_tilemap.tmx#cse380_tilesource3": {
+            "scaleInDock": 4
+        }
+    },
+    "map.height": 64,
+    "map.lastUsedExportFilter": "JSON map files (*.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 64,
+    "openFiles": [
+        "cse380_hw3_navmeshStuff.tmx",
+        "cse380_hw3_tilemap.tmx",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level1.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level2.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level5.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_HW4/GameEngine/dist/hw4_assets/tilemaps/level1.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level3.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level8.json"
+    ],
+    "project": "tiled_project.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "cse380_hw3_navmeshStuff.tmx",
+        "cse380_hw3_tilemap.tmx",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level1.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level2.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level5.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level8.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level3.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_HW4/GameEngine/dist/hw4_assets/tilemaps/level1.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/level4.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/CSE380_Final_Project/GameEngine/dist/final_proj_assets/tilemaps/testing.json",
+        "C:/Users/Zachary Grandison/Documents/CSE 380/cse380_hw3_tilemapOLD.tmx",
+        "cse320_hw3_tileset.tsx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

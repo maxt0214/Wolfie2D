@@ -40,7 +40,7 @@ export default class AIManager implements Updateable {
 	 * @param name The name of the AI to register
 	 * @param constr The constructor for the AI
 	 */
-	registerAI(name: string, constr: new <T extends AI>() => T ): void {
+	registerAI(name: string, constr: new <T extends AI | GoapAI>() => T ): void {
 		this.registeredAI.add(name, constr);
 	}
 

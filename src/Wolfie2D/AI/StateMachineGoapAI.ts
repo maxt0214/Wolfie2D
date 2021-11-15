@@ -31,13 +31,11 @@ import GoapActionPlanner from "./GoapActionPlanner";
 	destroy(){
 		// Get rid of our reference to the owner
 		delete this.owner;
-		//this.receiver.destroy();
+		this.receiver.destroy();
 	}
 
 	// @implemented
 	activate(options: Record<string, any>): void {}
 
 	changeGoal(goal: string): void {}
-
-    addStatus(status: string): void {}
 }
