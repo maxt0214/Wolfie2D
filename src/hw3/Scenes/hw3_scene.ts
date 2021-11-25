@@ -30,7 +30,6 @@ import Line from "../../Wolfie2D/Nodes/Graphics/Line";
 import { EaseFunctionType } from "../../Wolfie2D/Utils/EaseFunctions";
 
 
-//TODO: ADD MORE COMMENTS, particulary describing the two player interface and the enemy goap AI creation
 export default class hw3_scene extends Scene {
     // The player
     private player: AnimatedSprite;
@@ -166,10 +165,7 @@ export default class hw3_scene extends Scene {
                 this.createHealthpack(event.data.get("position"));
             }
             if(event.isType("enemyDied")){
-                console.log(this.enemies);
                 this.enemies = this.enemies.filter(enemy => enemy !== event.data.get("enemy"));
-                console.log(this.enemies);
-                console.log("HERE");
                 this.battleManager.enemies = this.battleManager.enemies.filter(enemy => enemy !== <BattlerAI>(event.data.get("enemy")._ai));
             }
             if(event.isType(hw3_Events.UNLOAD_ASSET)){
@@ -180,6 +176,7 @@ export default class hw3_scene extends Scene {
             }
         }
 
+        // update health of each player
         let health1 = (<BattlerAI>this.playerCharacters[0]._ai).health;
         let health2 = (<BattlerAI>this.playerCharacters[1]._ai).health;
 
@@ -187,6 +184,7 @@ export default class hw3_scene extends Scene {
             this.sceneManager.changeToScene(GameOver);
         }
 
+        // update closest enemy of each player
         let closetEnemy1 = this.getClosestEnemy(this.playerCharacters[0].position, (<PlayerController>this.playerCharacters[0]._ai).range);
         let closetEnemy2 = this.getClosestEnemy(this.playerCharacters[1].position, (<PlayerController>this.playerCharacters[1]._ai).range);
 
@@ -202,6 +200,7 @@ export default class hw3_scene extends Scene {
             this.getLayer("graph").setHidden(!this.getLayer("graph").isHidden());
         }
         
+        //Swap characters
         if(Input.isKeyJustPressed("z")){
             (<PlayerController>this.playerCharacters[0]._ai).inputEnabled = true;
             (<PlayerController>this.playerCharacters[1]._ai).inputEnabled = false;
@@ -346,6 +345,8 @@ export default class hw3_scene extends Scene {
             });
         this.playerCharacters[0].animation.play("IDLE");
 
+        ///////////
+
         inventory = new InventoryManager(this, 2, "inventorySlot", new Vec2(16, 32), 4, "slots2", "items2");
         startingWeapon = this.createWeapon("weak_pistol");
         inventory.addItem(startingWeapon);
@@ -454,8 +455,13 @@ export default class hw3_scene extends Scene {
             if(data.guardPosition){
                 data.guardPosition = new Vec2(data.guardPosition[0], data.guardPosition[1]);
             }
+            //initalize status and actions for each enemy
             let statusArray: Array<string> = [];
+            
+            // Attack action
             let action1 = new AttackAction(3, ["IN_RANGE"], ["GOAL"]);
+
+            //Vary move action cost
             let action2: Move;
             let range: number;
             if (i % 2 === 0){
@@ -466,6 +472,8 @@ export default class hw3_scene extends Scene {
                 range = 20;
                 action2 = new Move(2, [], ["IN_RANGE"], {inRange: range});
             }
+
+            //Vary retreat action cost
             let action3: Retreat;
             if (i % 2 === 0){
                 action3 = new Retreat(1, ["LOW_HEALTH"], ["GOAL"]);
@@ -473,6 +481,8 @@ export default class hw3_scene extends Scene {
             else {
                 action3 = new Retreat(4, ["LOW_HEALTH"], ["GOAL"]);
             }
+
+            //Vary weapon type
             let wep;
             if (i % 2 === 0){
                 wep = this.createWeapon("weak_pistol")

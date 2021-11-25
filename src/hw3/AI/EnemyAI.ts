@@ -20,7 +20,6 @@ import Guard from "./EnemyStates/Guard";
 import Patrol from "./EnemyStates/Patrol";
 
 
-//TODO add more comments on enemy updates
 export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
     /** The owner of this AI */
     owner: AnimatedSprite;
@@ -90,10 +89,6 @@ export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
 
         this.planner = new GoapActionPlanner();
 
-        // Subscribe to events
-        //this.receiver.subscribe(hw3_Events.SHOT_FIRED);
-        console.log("Subscribed to event");
-
         // Initialize to the default state
         this.initialize(EnemyStates.DEFAULT);
 
@@ -126,7 +121,7 @@ export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
         }
     }
     isPlayerVisible(pos: Vec2): Vec2{
-        //let pos = this.player1.position;
+        //Check if one player is visible, taking into account walls
 
         // Get the new player location
         let start = this.owner.position.clone();
@@ -165,16 +160,14 @@ export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
             }
         }
 
-        //this.retreatPos = new Vec2(pos.x + this.owner.position.x + 100, this.owner.position.y - pos.y - 100);
-        //console.log(pos.toString())
         return pos;
     }
 
     getPlayerPosition(): Vec2 {
+        //Get the position of the closest player in sight
         let pos = this.player1.position;
         let position1 = this.isPlayerVisible(pos);
         
-
         pos = this.player2.position;
         let position2 = this.isPlayerVisible(pos);
 
@@ -192,7 +185,6 @@ export default class EnemyAI extends StateMachineGoapAI implements BattlerAI {
             return position1;
         }
 
-        //√[(x₂ - x₁)² + (y₂ - y₁)²]
         
         let distance1 = Math.sqrt(Math.pow(this.owner.position.x - position1.x, 2) + Math.pow(this.owner.position.y - position1.y, 2));
         let distance2 = Math.sqrt(Math.pow(this.owner.position.x - position2.x, 2) + Math.pow(this.owner.position.y - position2.y, 2));

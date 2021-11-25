@@ -14,6 +14,7 @@ import TextInput from "../../Nodes/UIElements/TextInput";
 import Rect from "../../Nodes/Graphics/Rect";
 import ResourceManager from "../../ResourceManager/ResourceManager";
 import Line from "../../Nodes/Graphics/Line";
+import Particle from "../../Nodes/Graphics/Particle";
 
 // @ignorePage
 
@@ -196,8 +197,10 @@ export default class CanvasNodeFactory {
 
 	buildPoint(options?: Record<string, any>): Point {
 		this.checkIfPropExists("Point", options, "position", Vec2, "Vec2");
+		this.checkIfPropExists("Point", options, "size", Vec2, "Vec2");
 
-		return new Point(options.position);
+		//Changed for testing
+		return new Particle(options.position, options.size);
 	}
 
 	buildLine(options?: Record<string, any>): Point {

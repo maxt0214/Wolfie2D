@@ -8,7 +8,7 @@ import { hw3_Names } from "../../hw3_constants";
 import EnemyAI, { EnemyStates } from "../EnemyAI";
 import EnemyState from "./EnemyState";
 
-//TODO probably rename this class and fix it up, add comments, etc.
+//TODO probably rename this class 
 export default class Attack extends EnemyState {
     // Timers for managing this state
     pollTimer: Timer;
@@ -48,43 +48,7 @@ export default class Attack extends EnemyState {
     handleInput(event: GameEvent): void { }
 
     update(deltaT: number): void {
-        /*if(this.pollTimer.isStopped()){
-            // Restart the timer
-            this.pollTimer.start();
-
-            this.playerPos = this.parent.getPlayerPosition();
-
-            if(this.playerPos !== null){
-                // If we see a new player position, update the last position
-                this.lastPlayerPos = this.playerPos;
-                console.log("LAST POSITION");
-                console.log(this.lastPlayerPos.toString());
-            }
-        }
-
-        if(this.playerPos !== null){
-            // Player is visible, restart the exitTimer
-            this.exitTimer.start();
-
-            // Fire at player
-            let dir = this.playerPos.clone().sub(this.owner.position).normalize();
-            dir.rotateCCW(Math.PI / 4 * Math.random() - Math.PI/8);
-            if(this.parent.weapon.use(this.owner, "enemy", dir)){
-                // If we fired, face that direction
-                this.owner.rotation = Vec2.UP.angleToCCW(dir);
-            }
-
-        }
-
-        if(this.exitTimer.isStopped()){
-            // We haven't seen the player in a while, go check out where we last saw them, if possible
-            if(this.lastPlayerPos !== null){
-                this.retObj = {target: this.lastPlayerPos}
-                this.finished(EnemyStates.ALERT);
-            } else {
-                this.finished(EnemyStates.DEFAULT);
-            }
-        }*/
+        //Poll for player position
         if (this.pollTimer.isStopped()) {
             // Restart the timer
             this.pollTimer.start();
@@ -115,6 +79,7 @@ export default class Attack extends EnemyState {
             //this.parent.path = this.owner.getScene().getNavigationManager().getPath(hw3_Names.NAVMESH, this.owner.position, this.lastPlayerPos, true);
         }
 
+        //Add in range to status if close enough to a player
         if (this.playerPos !== null) {
             let distance = this.owner.position.distanceTo(this.playerPos);
             if (distance > this.parent.inRange) {
@@ -127,6 +92,7 @@ export default class Attack extends EnemyState {
             }
         }
 
+        //Choose next action
         let nextAction = this.parent.plan.peek();
         let result = nextAction.performAction(this.parent.currentStatus, this.parent, deltaT);
         if (result !== null) {

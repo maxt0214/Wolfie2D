@@ -4,10 +4,12 @@ import { GameEventType } from "../../Wolfie2D/Events/GameEventType";
 import Input from "../../Wolfie2D/Input/Input";
 import { TweenableProperties } from "../../Wolfie2D/Nodes/GameNode";
 import { GraphicType } from "../../Wolfie2D/Nodes/Graphics/GraphicTypes";
+import Point from "../../Wolfie2D/Nodes/Graphics/Point";
 import Rect from "../../Wolfie2D/Nodes/Graphics/Rect";
 import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import { UIElementType } from "../../Wolfie2D/Nodes/UIElements/UIElementTypes";
+import ParticleSystem from "../../Wolfie2D/Rendering/Animations/ParticleSystem";
 import Scene from "../../Wolfie2D/Scene/Scene";
 import Timer from "../../Wolfie2D/Timing/Timer";
 import Color from "../../Wolfie2D/Utils/Color";
@@ -45,6 +47,7 @@ export default class GameLevel extends Scene {
     // Screen fade in/out for level start and end
     protected levelTransitionTimer: Timer;
     protected levelTransitionScreen: Rect;
+    system: ParticleSystem;
 
     startScene(): void {
         // Do the game level standard initializations
@@ -86,6 +89,7 @@ export default class GameLevel extends Scene {
      */
     updateScene(deltaT: number){
         // Handle events and update the UI if needed
+        this.system.update(deltaT);
         while(this.receiver.hasNextEvent()){
             let event = this.receiver.getNextEvent();
             
@@ -272,6 +276,9 @@ export default class GameLevel extends Scene {
                 }
             ]
         });
+
+        this.system = new ParticleSystem(200, new Vec2(300, 100), 2000, 3, 10);
+        this.system.initalizePool(this, "UI");
 
         this.levelTransitionScreen = <Rect>this.add.graphic(GraphicType.RECT, "UI", {position: new Vec2(300, 200), size: new Vec2(600, 400)});
         this.levelTransitionScreen.color = new Color(34, 32, 52);

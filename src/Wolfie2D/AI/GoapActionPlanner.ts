@@ -6,7 +6,6 @@ import Stack from "../DataTypes/Stack";
 import GraphUtils from "../Utils/GraphUtils";
 
 export default class GoapActionPlanner {
-    //TODO - Elaborate on all steps of planner more thoroughly
     mapping: Map<number,GoapAction | string>;
     graph: Graph;
     path: Array<number>;
@@ -23,17 +22,16 @@ export default class GoapActionPlanner {
         this.mapping.set(1,"Goal");
         this.graph.addEdge(1,1,Number.POSITIVE_INFINITY);
 
+        //Build tree from 0 to 1
         this.buildTree(0, goal, possibleActions, currentStatus);
         console.log(this.graph.toString());
-        this.path = GraphUtils.djikstra(this.graph, 0);
-        //console.log(this.path.toString())
 
+        //Run djikstra to find shortest path
+        this.path = GraphUtils.djikstra(this.graph, 0);
+
+        //Push all elements of the plan
         let plan = new Stack<GoapAction>();
 		
-		// Push the final position and the final position in the graph
-		//plan.push(this.mapping.get(1));
-
-		// Add all parents along the path
 		let i = 1;
 		while(this.path[i] !== -1){
             console.log(this.path[i]);
@@ -47,13 +45,12 @@ export default class GoapActionPlanner {
     }
 
     buildTree(root: number, goal:string, possibleActions: Array<GoapAction>, currentStatus: Array<string>): void {
-        //build a hastable to link indicies of the graph to what the action is, 
-        //check on the side how getEdges works, hastable will use Actions as the identifier, 
-        //build the tree then run dijstras from root state, will have shortest path to goal if it exists.
-        
+        //For each possible action 
         possibleActions.forEach(action => {
             console.log("root:" + root + ",action precons:" + action.preconditions.toString() 
                 + ", action effects:" + action.effects.toString() + ", current Status:" + currentStatus.toString())
+
+            //Can it be performed?
             if (action.checkPreconditions(currentStatus)){
                 //This action can be performed
                 //Add effects to currentStatus
@@ -78,8 +75,6 @@ export default class GoapActionPlanner {
                 //Recursive call
                 console.log(possibleActions.indexOf(action))
                 let newActions = possibleActions.filter(act => act !== action)
-                console.log(possibleActions);
-                console.log(newActions);
                 this.buildTree(newNode, goal, newActions, action.effects);
             }
         });

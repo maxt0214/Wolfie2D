@@ -5,7 +5,6 @@ import Emitter from "../../../Wolfie2D/Events/Emitter";
 import NavigationPath from "../../../Wolfie2D/Pathfinding/NavigationPath";
 import EnemyAI from "../EnemyAI";
 
-//TODO elaborate a bit more on actions
 export default class Move extends GoapAction {
     private inRange: number;
 
@@ -23,12 +22,17 @@ export default class Move extends GoapAction {
 
     performAction(statuses: Array<string>, actor: StateMachineGoapAI, deltaT: number, target?: StateMachineGoapAI): Array<string> {
         if (this.checkPreconditions(statuses)){
+            //Check distance from player
             let enemy = <EnemyAI>actor;
             let playerPos = enemy.currentPlayer.position;
             let distance = enemy.owner.position.distanceTo(playerPos);
+
+            //If close enough, we've moved far enough and this loop action is done
             if (distance <= this.inRange){
                 return this.effects;
             }
+
+            //Otherwise move on path
             this.path = enemy.path;
             enemy.owner.rotation = Vec2.UP.angleToCCW(this.path.getMoveDirection(enemy.owner));
             enemy.owner.moveOnPath(enemy.speed * deltaT, this.path);

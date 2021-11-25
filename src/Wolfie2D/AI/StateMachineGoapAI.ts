@@ -6,7 +6,6 @@ import StateMachine from "../DataTypes/State/StateMachine";
 import GameNode from "../Nodes/GameNode";
 import GoapActionPlanner from "./GoapActionPlanner";
 
-//TODO: Implement this further
 /**
  * A version of a @reference[StateMachine] that is configured to work as an AI controller for a @reference[GameNode]
  */

@@ -5,7 +5,6 @@ import Emitter from "../../../Wolfie2D/Events/Emitter";
 import GameNode from "../../../Wolfie2D/Nodes/GameNode";
 import EnemyAI from "../EnemyAI";
 
-//TODO elaborate a bit more on actions
 export default class AttackAction extends GoapAction {
     protected emitter: Emitter;
     
@@ -19,10 +18,11 @@ export default class AttackAction extends GoapAction {
     performAction(statuses: Array<string>, actor: StateMachineGoapAI, deltaT: number, target?: StateMachineGoapAI): Array<string> {
         if (this.checkPreconditions(statuses)){
             let enemy = <EnemyAI>actor;
-
+            //If the player is out of sight, dont bother attacking
             if (enemy.getPlayerPosition() == null){
                 return null;
             }
+
             let dir = enemy.getPlayerPosition().clone().sub(enemy.owner.position).normalize();
             dir.rotateCCW(Math.PI / 4 * Math.random() - Math.PI/8);
             if(enemy.weapon.use(enemy.owner, "enemy", dir)){

@@ -7,7 +7,6 @@ import NavigationPath from "../../../Wolfie2D/Pathfinding/NavigationPath";
 import { hw3_Names } from "../../hw3_constants";
 import EnemyAI from "../EnemyAI";
 
-//TODO elaborate a bit more on actions
 export default class Retreat extends GoapAction {
     private path: NavigationPath;
     protected emitter: Emitter;
@@ -23,6 +22,8 @@ export default class Retreat extends GoapAction {
     performAction(statuses: Array<string>, actor: StateMachineGoapAI, deltaT: number, target?: StateMachineGoapAI): Array<string> {
         if (this.checkPreconditions(statuses)) {
             let enemy = <EnemyAI>actor;
+            //Keep moving until you've reached retreatPos
+            //TODO swap to distance
             if (enemy.owner.position.x > enemy.retreatPos.x && enemy.owner.position.y > enemy.retreatPos.y) {
                 return this.effects;
             }

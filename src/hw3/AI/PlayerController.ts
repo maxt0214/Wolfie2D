@@ -12,7 +12,6 @@ import { hw3_Names } from "../hw3_constants";
 import BattlerAI from "./BattlerAI";
 
 
-//TODO ADD more comments explaining main player loop
 export default class PlayerController implements BattlerAI {
     // Fields from BattlerAI
     health: number;
@@ -59,33 +58,13 @@ export default class PlayerController implements BattlerAI {
     handleEvent(event: GameEvent): void { }
 
     update(deltaT: number): void {
-        // Get the movement direction
-        /*this.direction.x = (Input.isPressed("left") ? -1 : 0) + (Input.isPressed("right") ? 1 : 0);
-        this.direction.y = (Input.isPressed("forward") ? -1 : 0) + (Input.isPressed("backward") ? 1 : 0);
-
-        if(!this.direction.isZero()){
-            // Move the player
-            this.owner.move(this.direction.normalized().scale(this.speed * deltaT));
-            this.owner.animation.playIfNotAlready("WALK", true);
-        } else {
-            // Player is idle
-            this.owner.animation.playIfNotAlready("IDLE", true);
-        }*/
-
-        // Get the unit vector in the look direction
-        //this.lookDirection = this.owner.position.dirTo(Input.getGlobalMousePosition());
         if (this.inputEnabled) {
-            // Shoot a bullet
+            //Check right click
             if (Input.isMouseJustPressed(2)) {
                 this.path = this.owner.getScene().getNavigationManager().getPath(hw3_Names.NAVMESH, this.owner.position, Input.getGlobalMousePosition(), true);
                 console.log(Input.getMousePosition())
                 console.log(this.owner.position)
             }
-
-            // Rotate the player
-            //this.owner.rotation = Vec2.UP.angleToCCW(this.lookDirection);
-
-            // Inventory
 
             // Check for slot change
             if (Input.isJustPressed("slot1")) {
@@ -119,6 +98,7 @@ export default class PlayerController implements BattlerAI {
             }
         }
 
+        //Move on path if selected
         if (this.path != null) {
             if (this.path.isDone()) {
                 this.path = null;
@@ -130,6 +110,7 @@ export default class PlayerController implements BattlerAI {
             }
         }
         else {
+            //Target an enemy and attack
             if (this.target != null) {
                 let item = this.inventory.getItem();
                 this.lookDirection = this.owner.position.dirTo(this.target);
