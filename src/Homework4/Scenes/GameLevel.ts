@@ -9,7 +9,7 @@ import Rect from "../../Wolfie2D/Nodes/Graphics/Rect";
 import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import { UIElementType } from "../../Wolfie2D/Nodes/UIElements/UIElementTypes";
-import ParticleSystem from "../../Wolfie2D/Rendering/Animations/ParticleSystem";
+import ParticleSystem, { ParticleSystemType } from "../../Wolfie2D/Rendering/Animations/ParticleSystem";
 import Scene from "../../Wolfie2D/Scene/Scene";
 import Timer from "../../Wolfie2D/Timing/Timer";
 import Color from "../../Wolfie2D/Utils/Color";
@@ -122,6 +122,7 @@ export default class GameLevel extends Scene {
                         // Hit a coin block, so increment our number of coins
                         this.incPlayerCoins(1);
                         this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: "coin", loop: false, holdReference: false});
+                        this.system.startSystem(2000, (this.player.position.clone().add(new Vec2(0, -64))));
                     }
                     break;
 
@@ -277,8 +278,9 @@ export default class GameLevel extends Scene {
             ]
         });
 
-        this.system = new ParticleSystem(200, new Vec2(300, 100), 2000, 3, 10);
-        this.system.initalizePool(this, "UI");
+        this.system = new ParticleSystem(100, new Vec2((5 * 32), (10 * 32)), 2000, 3, 10);
+        this.system.initalizePool(this, "primary", ParticleSystemType.burst, 1);
+        //this.system.startSystem(4000);
 
         this.levelTransitionScreen = <Rect>this.add.graphic(GraphicType.RECT, "UI", {position: new Vec2(300, 200), size: new Vec2(600, 400)});
         this.levelTransitionScreen.color = new Color(34, 32, 52);

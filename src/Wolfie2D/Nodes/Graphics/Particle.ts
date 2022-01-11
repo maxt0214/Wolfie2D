@@ -20,10 +20,13 @@ export default class Particle extends Point {
 
     vel: Vec2;
 
-    constructor(position: Vec2, size: Vec2) {
+    mass: number;
+
+    constructor(position: Vec2, size: Vec2, mass: number) {
         // Are we making this a circle?
         super(position, size);
         this.inUse = false;
+        this.mass = mass;
     }
 
     setParticleActive(lifetime: number, position: Vec2) {

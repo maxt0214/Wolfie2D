@@ -200,7 +200,7 @@ export default class CanvasNodeFactory {
 		this.checkIfPropExists("Point", options, "size", Vec2, "Vec2");
 
 		//Changed for testing
-		return new Particle(options.position, options.size);
+		return new Particle(options.position, options.size, options.mass);
 	}
 
 	buildLine(options?: Record<string, any>): Point {

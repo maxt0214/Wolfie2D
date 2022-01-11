@@ -10,7 +10,7 @@ export default class Level1 extends GameLevel {
         // Load resources
         this.load.image("background", "hw4_assets/sprites/2bitbackground.png");
         this.load.image("coin", "hw4_assets/sprites/coin.png");
-        this.load.tilemap("level1", "hw4_assets/tilemaps/level1.json");
+        this.load.tilemap("level1", "hw4_assets/tilemaps/level3.json");
         this.load.spritesheet("player", "hw4_assets/spritesheets/platformPlayer.json");
         this.load.spritesheet("hopper", "hw4_assets/spritesheets/hopper.json");
         this.load.spritesheet("bunny", "hw4_assets/spritesheets/ghostBunny.json");
@@ -61,7 +61,7 @@ export default class Level1 extends GameLevel {
         this.add.tilemap("level1", new Vec2(2, 2));
         this.viewport.setBounds(0, 0, 64*32, 20*32);
 
-        this.playerSpawn = new Vec2(5*32, 18*32);
+        this.playerSpawn = new Vec2(5*32, 14*32);
 
         // Do generic setup for a GameLevel
         super.startScene();
@@ -71,11 +71,11 @@ export default class Level1 extends GameLevel {
         this.nextLevel = Level2;
 
         // Add enemies of various types
-        for(let pos of [new Vec2(24, 18)]){
+        for(let pos of [new Vec2(24, 12)]){
             this.addEnemy("bunny", pos, {});
         }
 
-        for(let pos of [new Vec2(51, 17)]){
+        for(let pos of [new Vec2(51, 13)]){
             this.addEnemy("hopper", pos, {jumpy: true});
         }
         this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: "level_music", loop: true, holdReference: true});
