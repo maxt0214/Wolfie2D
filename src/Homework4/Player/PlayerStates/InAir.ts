@@ -3,6 +3,7 @@ import { PlayerStates } from "../PlayerController";
 import PlayerState from "./PlayerState";
 
 export default abstract class InAir extends PlayerState {
+    
     update(deltaT: number): void {
         super.update(deltaT);
 

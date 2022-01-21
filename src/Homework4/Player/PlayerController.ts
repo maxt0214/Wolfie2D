@@ -5,6 +5,7 @@ import GameNode from "../../Wolfie2D/Nodes/GameNode";
 import Sprite from "../../Wolfie2D/Nodes/Sprites/Sprite";
 import OrthogonalTilemap from "../../Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 import { EaseFunctionType } from "../../Wolfie2D/Utils/EaseFunctions";
+import { HW4_Color } from "../hw4_color";
 import { HW4_Events } from "../hw4_enums";
 import Fall from "./PlayerStates/Fall";
 import Idle from "./PlayerStates/Idle";
@@ -35,6 +36,7 @@ export default class PlayerController extends StateMachineAI {
     MAX_SPEED: number = 300;
     tilemap: OrthogonalTilemap;
     coin: Sprite;
+    suitColor: HW4_Color;
 
     initializeAI(owner: GameNode, options: Record<string, any>){
         this.owner = owner;
@@ -59,6 +61,9 @@ export default class PlayerController extends StateMachineAI {
         this.coin = this.owner.getScene().add.sprite("coin", "coinLayer");
         this.coin.position.set(-100, -100);
         this.coin.scale.set(2, 2);
+        this.suitColor = options.color;
+
+        this.receiver.subscribe(HW4_Events.SUIT_COLOR_CHANGE);
     }
 
     initializePlatformer(): void {

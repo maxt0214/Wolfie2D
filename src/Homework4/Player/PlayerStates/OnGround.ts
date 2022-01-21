@@ -7,8 +7,6 @@ import PlayerState from "./PlayerState";
 export default class OnGround extends PlayerState {
 	onEnter(options: Record<string, any>): void {}
 
-	handleInput(event: GameEvent): void {}
-
 	update(deltaT: number): void {
 		if(this.parent.velocity.y > 0){
 			this.parent.velocity.y = 0;

@@ -144,6 +144,9 @@ export default class CanvasNodeFactory {
 			case GraphicType.RECT:
 				instance = this.buildRect(options);
 				break;
+			case GraphicType.PARTICLE:
+				instance = this.buildParticle(options);
+				break;				
 			default:
 				throw `GraphicType '${type}' does not exist, or is registered incorrectly.`
 		}
@@ -198,6 +201,14 @@ export default class CanvasNodeFactory {
 	buildPoint(options?: Record<string, any>): Point {
 		this.checkIfPropExists("Point", options, "position", Vec2, "Vec2");
 		this.checkIfPropExists("Point", options, "size", Vec2, "Vec2");
+
+		return new Point(options.position, options.size);
+	}
+
+	buildParticle(options?: Record<string, any>): Point {
+		this.checkIfPropExists("Particle", options, "position", Vec2, "Vec2");
+		this.checkIfPropExists("Particle", options, "size", Vec2, "Vec2");
+		this.checkIfPropExists("Particle", options, "mass", "number", "number");
 
 		//Changed for testing
 		return new Particle(options.position, options.size, options.mass);

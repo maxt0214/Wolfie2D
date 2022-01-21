@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"platformer.json"
+         "target":"..\/..\/..\/..\/..\/CSE 380\/CSE380_HW4\/GameEngine\/dist\/hw4_assets\/tilemaps\/platformer.json"
         }
     },
  "height":20,
@@ -535,13 +535,13 @@
  "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.3.4",
+ "tiledversion":"1.4.3",
  "tileheight":16,
  "tilesets":[
         {
          "columns":8,
          "firstgid":1,
-         "image":"platformer.png",
+         "image":"..\/..\/..\/..\/..\/CSE 380\/CSE380_HW4\/GameEngine\/dist\/hw4_assets\/tilemaps\/platformer.png",
          "imageheight":128,
          "imagewidth":128,
          "margin":0,
@@ -553,6 +553,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":1.2,
+ "version":1.4,
  "width":64
 }

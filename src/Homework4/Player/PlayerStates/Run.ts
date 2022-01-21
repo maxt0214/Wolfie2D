@@ -1,5 +1,6 @@
 import Input from "../../../Wolfie2D/Input/Input";
 import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import { HW4_Color } from "../../hw4_color";
 import { HW4_Events } from "../../hw4_enums";
 import { PlayerStates } from "../PlayerController";
 import OnGround from "./OnGround";
@@ -9,7 +10,6 @@ export default class Run extends OnGround {
 
 	onEnter(options: Record<string, any>): void {
 		this.parent.speed = this.parent.MAX_SPEED;
-		this.owner.animation.play("WALK", true);
 	}
 
 	update(deltaT: number): void {

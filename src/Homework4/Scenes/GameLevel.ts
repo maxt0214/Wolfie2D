@@ -1,5 +1,6 @@
 import AABB from "../../Wolfie2D/DataTypes/Shapes/AABB";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
+import Debug from "../../Wolfie2D/Debug/Debug";
 import { GameEventType } from "../../Wolfie2D/Events/GameEventType";
 import Input from "../../Wolfie2D/Input/Input";
 import { TweenableProperties } from "../../Wolfie2D/Nodes/GameNode";
@@ -14,7 +15,9 @@ import Scene from "../../Wolfie2D/Scene/Scene";
 import Timer from "../../Wolfie2D/Timing/Timer";
 import Color from "../../Wolfie2D/Utils/Color";
 import { EaseFunctionType } from "../../Wolfie2D/Utils/EaseFunctions";
+import BalloonController from "../Enemies/BalloonController";
 import EnemyController from "../Enemies/EnemyController";
+import { HW4_Color } from "../hw4_color";
 import { HW4_Events } from "../hw4_enums";
 import PlayerController from "../Player/PlayerController";
 import MainMenu from "./MainMenu";
@@ -89,7 +92,7 @@ export default class GameLevel extends Scene {
      */
     updateScene(deltaT: number){
         // Handle events and update the UI if needed
-        this.system.update(deltaT);
+        //this.system.update(deltaT);
         while(this.receiver.hasNextEvent()){
             let event = this.receiver.getNextEvent();
             
@@ -146,6 +149,7 @@ export default class GameLevel extends Scene {
                     {
                         // An enemy finished its dying animation, destroy it
                         let node = this.sceneGraph.getNode(event.data.get("owner"));
+                        this.system.startSystem(2000, node.position.clone());
                         node.destroy();
                     }
                     break;
@@ -203,6 +207,29 @@ export default class GameLevel extends Scene {
         if(this.player.position.y > 100*64){
             this.incPlayerLife(-1);
             this.respawnPlayer();
+        }
+
+        if(this.player.onWall) {
+            console.log("ONWALL")
+        }
+        else if(this.player.onCeiling) {
+            console.log("ONCEIL")
+        }
+        else if (this.player.onGround) {
+            console.log("ONGROUND")
+        }
+
+        if (Input.isKeyJustPressed("1")) {
+            this.emitter.fireEvent(HW4_Events.SUIT_COLOR_CHANGE, {color: HW4_Color.RED});
+            //(<PlayerController>this.player.ai).suitColor = HW4_Color.RED;
+        }
+        if (Input.isKeyJustPressed("2")) {
+            this.emitter.fireEvent(HW4_Events.SUIT_COLOR_CHANGE, {color: HW4_Color.GREEN});
+            //(<PlayerController>this.player.ai).suitColor = HW4_Color.GREEN;
+        }
+        if (Input.isKeyJustPressed("3")) {
+            this.emitter.fireEvent(HW4_Events.SUIT_COLOR_CHANGE, {color: HW4_Color.BLUE});
+            //(<PlayerController>this.player.ai).suitColor = HW4_Color.BLUE;
         }
     }
 
@@ -280,7 +307,7 @@ export default class GameLevel extends Scene {
 
         this.system = new ParticleSystem(100, new Vec2((5 * 32), (10 * 32)), 2000, 3, 10);
         this.system.initalizePool(this, "primary", ParticleSystemType.burst, 1);
-        //this.system.startSystem(4000);
+        //this.system.startSystem(20000, this.player.position.clone().add(new Vec2(4,4)));
 
         this.levelTransitionScreen = <Rect>this.add.graphic(GraphicType.RECT, "UI", {position: new Vec2(300, 200), size: new Vec2(600, 400)});
         this.levelTransitionScreen.color = new Color(34, 32, 52);
@@ -329,7 +356,7 @@ export default class GameLevel extends Scene {
         this.player.position.copy(this.playerSpawn);
         this.player.addPhysics(new AABB(Vec2.ZERO, new Vec2(14, 14)));
         this.player.colliderOffset.set(0, 2);
-        this.player.addAI(PlayerController, {playerType: "platformer", tilemap: "Main"});
+        this.player.addAI(PlayerController, {playerType: "platformer", tilemap: "Main", color: HW4_Color.RED});
 
         // Add triggers on colliding with coins or coinBlocks
         this.player.setGroup("player");
@@ -399,7 +426,7 @@ export default class GameLevel extends Scene {
         enemy.position.set(tilePos.x*32, tilePos.y*32);
         enemy.scale.set(2, 2);
         enemy.addPhysics();
-        enemy.addAI(EnemyController, aiOptions);
+        enemy.addAI(BalloonController, aiOptions);
         enemy.setGroup("enemy");
         enemy.setTrigger("player", HW4_Events.PLAYER_HIT_ENEMY, null);
     }
@@ -463,6 +490,33 @@ export default class GameLevel extends Scene {
                 this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: "heli_death", loop: false, holdReference: false});
                 enemy.animation.play("DYING", false, HW4_Events.ENEMY_DIED);
             }
+        }
+        else if (enemy.imageId == "RedBalloon"){
+                enemy.disablePhysics();
+                this.system.changeColor(new Color(255, 0, 0));
+                this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: "ghost_death", loop: false, holdReference: false});
+                if ((<BalloonController>enemy.ai).color != (<PlayerController>player.ai).suitColor) {
+                    this.incPlayerLife(-1);
+                }
+                enemy.animation.play("DYING", false, HW4_Events.ENEMY_DIED);
+        }
+        else if (enemy.imageId == "GreenBalloon"){
+            enemy.disablePhysics();
+            this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: "ghost_death", loop: false, holdReference: false});
+            this.system.changeColor(new Color(0, 255, 0));
+            if ((<BalloonController>enemy.ai).color != (<PlayerController>player.ai).suitColor) {
+                this.incPlayerLife(-1);
+            }
+            enemy.animation.play("DYING", false, HW4_Events.ENEMY_DIED);
+        }
+        else if (enemy.imageId == "BlueBalloon"){
+            enemy.disablePhysics();
+            this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: "ghost_death", loop: false, holdReference: false});
+            this.system.changeColor(new Color(0, 0, 255));
+            if ((<BalloonController>enemy.ai).color != (<PlayerController>player.ai).suitColor) {
+                this.incPlayerLife(-1);
+            }
+            enemy.animation.play("DYING", false, HW4_Events.ENEMY_DIED);
         }
         else{
             Input.disableInput();
