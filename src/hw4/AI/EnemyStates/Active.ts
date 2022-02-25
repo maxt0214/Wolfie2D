@@ -38,6 +38,13 @@ export default class Active extends EnemyState {
     handleInput(event: GameEvent): void { }
 
     // HOMEWORK 4 - TODO
+    /**
+     * This function is called whenever we're defining a path towards the player, and it should create a path that moves
+     * in the complete opposite direction. For example, if the path to the player is moving straight left, this method should create 
+     * a retreat path that moves straight right. This path should then be set to retreatPath in EnemyAI.
+     * 
+     * You'll have to implement this function so you can use retreatPath in the Retreat action.
+     */
     pickRetreatPath(pathToPlayer: NavigationPath){
 
     }
