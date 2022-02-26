@@ -325,7 +325,7 @@ export default class hw4_scene extends Scene {
         this.playerCharacters[0].addAI(PlayerController,
             {
                 speed: 100,
-                health: 100,
+                health: 25,
                 inventory: inventory,
                 items: this.items,
                 inputEnabled: true,
@@ -345,7 +345,7 @@ export default class hw4_scene extends Scene {
         this.playerCharacters[1].addAI(PlayerController,
             {
                 speed: 100,
-                health: 100,
+                health: 10,
                 inventory: inventory,
                 items: this.items,
                 inputEnabled: false,
@@ -528,7 +528,8 @@ export default class hw4_scene extends Scene {
              * Once you've set up the actions for your custom enemy types, assign them here so they'll be spawned in your game.
              * They can have any weapons you want.
              * 
-             * Your game in the end should have an equal amount of each enemy type (Around 25% of each type of enemy)
+             * Your game in the end should have an equal amount of each enemy type (Around 25% of each type of enemy), and at least 20 enemies in
+             * total. Also, half the enemies should patrol while the other half guard.
              */
             if (data.type === "gun_enemy"){
                 weapon = this.createWeapon("weak_pistol")

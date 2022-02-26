@@ -43,7 +43,8 @@ export default class MainMenu extends Scene {
         const aboutHeader = <Label>this.add.uiElement(UIElementType.LABEL, "about", {position: new Vec2(center.x, center.y - 250), text: "About"});
         aboutHeader.textColor = Color.WHITE;
 
-        const text1 = "This game was created by Zachary Grandison, Joe Weaver, and Richard McKenna";
+        // HOMEWORK 4 - TODO: Give yourself credit and add your name to the about page!
+        const text1 = "This game was created by Zachary Grandison, and Richard McKenna";
         const text2 = "using the Wolfie2D game engine, a TypeScript game engine created by";
         const text3 = "Joe Weaver and Richard McKenna.";
 
