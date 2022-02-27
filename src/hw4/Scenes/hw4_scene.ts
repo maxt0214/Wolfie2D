@@ -96,10 +96,6 @@ export default class hw4_scene extends Scene {
     }
 
     startScene(){
-        // Add in the tilemap
-        let tilemapLayers = this.add.tilemap("level");
-
-        // Get the wall layer
         // HOMEWORK 4 - TODO
         /*
             Modify this line if needed.
@@ -109,11 +105,30 @@ export default class hw4_scene extends Scene {
 
             What the line is saying is to get the first level from the bottom (tilemapLayers[1]),
             which in my case was the Walls layer.
+
+            Also, your tilemap will be made with 32x32 tiles while the example map is made with 16x16 tiles.
+            You'll need to scale it down for our 16x16 players and enemy sprites. The code for this
+            is listed below, it's just a scaling down by 1/2 for the tilemap size.
         */
+
+        // Add in the tilemap
+        let tilemapLayers = this.add.tilemap("level");
+
+         // Get the wall layer
         this.walls = <OrthogonalTilemap>tilemapLayers[1].getItems()[0];
 
         // Set the viewport bounds to the tilemap
-        let tilemapSize: Vec2 = this.walls.size; 
+        let tilemapSize: Vec2 = this.walls.size;
+
+        //Uncomment this code and comment the above code when you're using your tilemap
+        /*let tilemapLayers = this.add.tilemap("level", new Vec2(0.5, 0.5));
+
+         // Get the wall layer
+        this.walls = <OrthogonalTilemap>tilemapLayers[1].getItems()[0];
+
+        // Set the viewport bounds to the tilemap
+        let tilemapSize: Vec2 = this.walls.size.scale(0.5);*/
+
         this.viewport.setBounds(0, 0, tilemapSize.x, tilemapSize.y);
 
         this.addLayer("primary", 10);
@@ -189,7 +204,7 @@ export default class hw4_scene extends Scene {
         let health2 = (<BattlerAI>this.playerCharacters[1]._ai).health;
 
         //If both are dead, game over
-        if(health1 === 0 || health2 === 0){
+        if(health1 === 0 && health2 === 0){
             this.sceneManager.changeToScene(GameOver);
         }
 

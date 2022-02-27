@@ -31,6 +31,7 @@ export default class Active extends EnemyState {
         this.retObj = {};
 
         // Choose path to last seen player position
+        this.retObj = { target: this.parent.lastPlayerPos }
         this.parent.path = this.owner.getScene().getNavigationManager().getPath(hw4_Names.NAVMESH, this.owner.position, this.parent.lastPlayerPos, true);
         this.pickRetreatPath(this.parent.path);
     }
