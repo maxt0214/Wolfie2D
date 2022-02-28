@@ -112,22 +112,13 @@ export default class hw4_scene extends Scene {
         */
 
         // Add in the tilemap
-        let tilemapLayers = this.add.tilemap("level");
+        let tilemapLayers = this.add.tilemap("level", new Vec2(0.5, 0.5));
 
          // Get the wall layer
         this.walls = <OrthogonalTilemap>tilemapLayers[1].getItems()[0];
 
         // Set the viewport bounds to the tilemap
-        let tilemapSize: Vec2 = this.walls.size;
-
-        //Uncomment this code and comment the above code when you're using your tilemap
-        /*let tilemapLayers = this.add.tilemap("level", new Vec2(0.5, 0.5));
-
-         // Get the wall layer
-        this.walls = <OrthogonalTilemap>tilemapLayers[1].getItems()[0];
-
-        // Set the viewport bounds to the tilemap
-        let tilemapSize: Vec2 = this.walls.size.scale(0.5);*/
+        let tilemapSize: Vec2 = this.walls.size.scaled(0.5);
 
         this.viewport.setBounds(0, 0, tilemapSize.x, tilemapSize.y);
 
@@ -269,10 +260,10 @@ export default class hw4_scene extends Scene {
         for(let item of itemData.items){
             if(item.type === "healthpack"){
                 // Create a healthpack
-                this.createHealthpack(new Vec2(item.position[0], item.position[1]));
+                this.createHealthpack(new Vec2(item.position[0]/2, item.position[1]/2));
             } else {
                 let weapon = this.createWeapon(item.weaponType);
-                weapon.moveSprite(new Vec2(item.position[0], item.position[1]));
+                weapon.moveSprite(new Vec2(item.position[0]/2, item.position[1]/2));
                 this.items.push(weapon);
             }
         }        
@@ -325,6 +316,10 @@ export default class hw4_scene extends Scene {
         }
     }
 
+    // HOMEWORK 4 - TODO
+    /**
+     * Change positions of the player characters to whatever fits your map
+     */
     initializePlayer(): void {
         // Create the inventory
         let inventory = new InventoryManager(this, 2, "inventorySlot", new Vec2(16, 16), 4, "slots1", "items1");
@@ -334,8 +329,8 @@ export default class hw4_scene extends Scene {
         // Create the players
         this.playerCharacters = Array(2);
         this.playerCharacters[0] = this.add.animatedSprite("player1", "primary");
-        this.playerCharacters[0].position.set(4*16, 62*16);
-        this.playerCharacters[0].addPhysics(new AABB(Vec2.ZERO, new Vec2(5, 5)));
+        this.playerCharacters[0].position.set(4*8, 62*8);
+        this.playerCharacters[0].addPhysics(new AABB(Vec2.ZERO, new Vec2(8, 8)));
         //First player is melee based, starts off with a knife and is short ranged
         this.playerCharacters[0].addAI(PlayerController,
             {
@@ -355,8 +350,8 @@ export default class hw4_scene extends Scene {
 
         //Second player is ranged based, long range and starts with pistol
         this.playerCharacters[1] = this.add.animatedSprite("player2", "primary");
-        this.playerCharacters[1].position.set(2*16, 62*16);
-        this.playerCharacters[1].addPhysics(new AABB(Vec2.ZERO, new Vec2(5, 5)));
+        this.playerCharacters[1].position.set(2*8, 62*8);
+        this.playerCharacters[1].addPhysics(new AABB(Vec2.ZERO, new Vec2(8, 8)));
         this.playerCharacters[1].addAI(PlayerController,
             {
                 speed: 100,
@@ -404,8 +399,8 @@ export default class hw4_scene extends Scene {
 
         // Add all nodes to our graph
         for(let node of navmeshData.nodes){
-            this.graph.addPositionedNode(new Vec2(node[0], node[1]));
-            this.add.graphic(GraphicType.POINT, "graph", {position: new Vec2(node[0], node[1])})
+            this.graph.addPositionedNode(new Vec2(node[0]/2, node[1]/2));
+            this.add.graphic(GraphicType.POINT, "graph", {position: new Vec2(node[0]/2, node[1]/2)})
         }
 
         // Add all edges to our graph
@@ -516,18 +511,18 @@ export default class hw4_scene extends Scene {
 
             // Create an enemy
             this.enemies[i] = this.add.animatedSprite(data.type, "primary");
-            this.enemies[i].position.set(data.position[0], data.position[1]);
+            this.enemies[i].position.set(data.position[0]/2, data.position[1]/2);
             this.enemies[i].animation.play("IDLE");
 
             // Activate physics
-            this.enemies[i].addPhysics(new AABB(Vec2.ZERO, new Vec2(5, 5)));
+            this.enemies[i].addPhysics(new AABB(Vec2.ZERO, new Vec2(8, 8)));
 
             if(data.route){
                 data.route = data.route.map((index: number) => this.graph.getNodePosition(index));                
             }
 
             if(data.guardPosition){
-                data.guardPosition = new Vec2(data.guardPosition[0], data.guardPosition[1]);
+                data.guardPosition = new Vec2(data.guardPosition[0]/2, data.guardPosition[1]/2);
             }
 
             /*initalize status and actions for each enemy. This can be edited if you want your custom enemies to start out with
