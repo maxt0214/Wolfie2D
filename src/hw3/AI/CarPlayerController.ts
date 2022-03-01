@@ -1,3 +1,4 @@
+import Graph from "../../Wolfie2D/DataTypes/Graphs/Graph";
 import AI from "../../Wolfie2D/DataTypes/Interfaces/AI";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Debug from "../../Wolfie2D/Debug/Debug";
@@ -47,6 +48,8 @@ export default class CarPlayerController implements AI {
 
 		this.receiver = new Receiver();
 		this.emitter = new Emitter();
+
+		this.receiver.subscribe(Homework3Event.PLAYER_DAMAGE);
 	}
 
 	activate(options: Record<string, any>){};
@@ -75,6 +78,10 @@ export default class CarPlayerController implements AI {
 		//HOMEWORK 3 - TODO 
 		//When the player clicks their mouse, a bullet should be fired by using the SHOOT_BULLET event.
 		//Note that you shouldn't be able to fire a bullet while holding shift.
+		if(Input.isMouseJustPressed() && !Input.isKeyPressed("shift")) {
+			this.owner.animation.play("firing", false);
+			this.emitter.fireEvent(Homework3Event.SHOOT_BULLET, {position: this.owner.position.clone()});
+		}
 
 		//If shift is currently being held down, increase the speed of the car. If not, check if mouse click has been pressed to shoot a bullet.
 		if(Input.isKeyPressed("shift")) {

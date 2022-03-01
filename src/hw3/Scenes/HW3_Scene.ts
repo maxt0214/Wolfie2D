@@ -251,7 +251,7 @@ export default class Homework3_Scene extends Scene {
 			// HOMEWORK 3 - TODO
 			// Currently bullets use the base custom gradient circle shader, 
 			// you'll need to change this to the Linear Gradient Circle once you get that shader working. 
-			this.bullets[i].useCustomShader(Homework3Shaders.GRADIENT_CIRCLE);
+			this.bullets[i].useCustomShader(Homework3Shaders.LINEAR_GRADIENT_CIRCLE);
 
 			this.bullets[i].visible = false;
 			// This is the color each bullet is set to by default, you can change this if you like a different color
@@ -302,6 +302,11 @@ export default class Homework3_Scene extends Scene {
 			if(!b.visible){
 				// We found a dead bullet
 				bullet = b;
+				let num = RandUtils.randInt(0,2);
+				if(num > 0)
+					bullet.color = Color.MAGENTA;
+				else
+					bullet.color = Color.YELLOW;
 				break;
 			}
 		}
@@ -480,6 +485,10 @@ export default class Homework3_Scene extends Scene {
 				// If the rock is spawned in and it overlaps the player
 				if(rock.visible && this.player.collisionShape.overlaps(rock.boundary)){
 					// Put your code here:
+					rock.visible = false;
+					this.playerHealth -= 1;
+					this.emitter.fireEvent(Homework3Event.PLAYER_DAMAGE, {health: this.playerHealth});
+					this.healthLabel.text = `Health: ${this.playerHealth}`;
 				}
 			}
 		}
@@ -571,6 +580,13 @@ export default class Homework3_Scene extends Scene {
 	 */
 	handleScreenDespawn(node: CanvasNode, viewportCenter: Vec2, paddedViewportSize: Vec2, isBullet: boolean): void {
 		// Your code goes here:
+		if(node.position.y > viewportCenter.y + paddedViewportSize.y/2 || node.position.y < viewportCenter.y - paddedViewportSize.y/2) {
+			if(isBullet) {
+				this.emitter.fireEvent(Homework3Event.BULLET_USED, {id: node.id});
+			} else {
+				node.visible = false;
+			}
+		}
 	}
 
 	// HOMEWORK 3 - TODO (3. BOUND CAR)
@@ -597,8 +613,21 @@ export default class Homework3_Scene extends Scene {
 	 * @param viewportSize The size of the viewport
 	 */
 	lockPlayer(viewportCenter: Vec2, viewportSize: Vec2): void {
-		//REMOVE
 		// Your code goes here:
+		let lx = viewportCenter.x - viewportSize.x/2, rx = viewportCenter.x + viewportSize.x/2;
+		let ly = viewportCenter.y - viewportSize.y/2, ry = viewportCenter.y + viewportSize.y/2;
+
+		let plx = this.player.position.x - this.player.sizeWithZoom.x/2, ply = this.player.position.y - this.player.sizeWithZoom.y/2;
+		let pux = this.player.position.x + this.player.sizeWithZoom.x/2, puy = this.player.position.y + this.player.sizeWithZoom.y/2;
+
+		if(plx < lx) 
+			this.player.position.set(lx + this.player.sizeWithZoom.x/2, this.player.position.y);
+		if(ply < ly)
+			this.player.position.set(this.player.position.x, ly + this.player.sizeWithZoom.y/2);
+		if(pux > rx) 
+			this.player.position.set(rx - this.player.sizeWithZoom.x/2, this.player.position.y);
+		if(puy > ry)
+			this.player.position.set(this.player.position.x, ry - this.player.sizeWithZoom.y/2);
 	}
 
 	// HOMEWORK 3 - TODO (2. collision)
@@ -627,9 +656,9 @@ export default class Homework3_Scene extends Scene {
 	 * @returns True if the two shapes overlap, false if they do not
 	 */
 	static checkAABBtoCircleCollision(aabb: AABB, circle: Circle): boolean {
-		//REMOVE
 		// Your code goes here:
-		return false;
+		return circle.containsPoint(aabb.topLeft) || circle.containsPoint(aabb.topRight) || 
+				circle.containsPoint(aabb.bottomLeft) || circle.containsPoint(aabb.bottomRight);
 	}
 
 }

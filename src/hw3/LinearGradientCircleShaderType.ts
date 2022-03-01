@@ -77,9 +77,12 @@ export default class LinearGradientCircleShaderType extends RectShaderType {
 
 		//color
 		let webGL_color = options.color.toWebGL();
+		let webGL_color2 = options.color2.toWebGL();
 		const circle_Color = gl.getUniformLocation(program, "circle_Color");
+		const circle_Color2 = gl.getUniformLocation(program, "circle_Color2");
 		gl.uniform4f(circle_Color, webGL_color[0], webGL_color[1], webGL_color[2], webGL_color[3]);
-
+		gl.uniform4f(circle_Color2, webGL_color2[0], webGL_color2[1], webGL_color2[2], webGL_color2[3]);
+		
 		// Draw the quad
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 	}
@@ -97,6 +100,7 @@ export default class LinearGradientCircleShaderType extends RectShaderType {
 			size: gc.size,
 			rotation: gc.rotation,
 			color: gc.color,
+			color2: Color.BLUE,
 		}
 		return options;
 	}

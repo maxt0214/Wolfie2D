@@ -3,6 +3,7 @@ precision mediump float;
 varying vec4 v_Position;
 
 uniform vec4 circle_Color;
+uniform vec4 circle_Color2;
 
 // HOMEWORK 3 - TODO
 /*
@@ -26,6 +27,12 @@ void main(){
 	}
 
 	// Use the alpha value in our color
-	gl_FragColor = vec4(circle_Color);
+	float dist_tr_sq = 1.0 - ((1.0-v_Position.x)*(1.0-v_Position.x) + (1.0-v_Position.y)*(1.0-v_Position.y))/4.0;
+	
+	gl_FragColor = vec4(circle_Color.x * dist_tr_sq + circle_Color2.x * (1.0-dist_tr_sq),
+						circle_Color.y * dist_tr_sq + circle_Color2.y * (1.0-dist_tr_sq),
+						circle_Color.z * dist_tr_sq + circle_Color2.z * (1.0-dist_tr_sq),
+						0);
+	
 	gl_FragColor.a = alpha;
 }
