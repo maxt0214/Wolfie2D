@@ -44,7 +44,7 @@ export default class MainMenu extends Scene {
         aboutHeader.textColor = Color.WHITE;
 
         // HOMEWORK 4 - TODO: Give yourself credit and add your name to the about page!
-        const text1 = "This game was created by Zachary Grandison, and Richard McKenna";
+        const text1 = "This game was created by Xiaotian Ma";
         const text2 = "using the Wolfie2D game engine, a TypeScript game engine created by";
         const text3 = "Joe Weaver and Richard McKenna.";
 
@@ -87,6 +87,50 @@ export default class MainMenu extends Scene {
 
             Additionally, on the main menu, you should be able to press a button to reach the controls screen.
         */
+        //control button on the main menu
+        const control = this.add.uiElement(UIElementType.BUTTON, "mainMenu", {position: new Vec2(center.x, center.y), text: "Control"});
+        control.size.set(200, 50);
+        control.borderWidth = 2;
+        control.borderColor = Color.WHITE;
+        control.backgroundColor = Color.TRANSPARENT;
+        control.onClickEventId = "control";
+        //control page
+        this.control = this.addUILayer("control");
+        this.control.setHidden(true);
+
+        const controlHeader = <Label>this.add.uiElement(UIElementType.LABEL, "control", {position: new Vec2(center.x, center.y - 250), text: "Controls"});
+        controlHeader.textColor = Color.WHITE;
+
+        const move = "Press WASD to move" 
+        const drop = "Press Q to drop an item" 
+        const pick = "Press E to pick up an item"
+        const use = "Click to use current item"
+        const item = "Press 1 & 2 to change items"
+        const switchZ = "Press Z to switch to player 1"
+        const switchX = "Press X to switch to player 2";
+
+        const lmove = <Label>this.add.uiElement(UIElementType.LABEL, "control", {position: new Vec2(center.x, center.y - 200), text: move});
+        const ldrop = <Label>this.add.uiElement(UIElementType.LABEL, "control", {position: new Vec2(center.x, center.y - 150), text: drop});
+        const lpick = <Label>this.add.uiElement(UIElementType.LABEL, "control", {position: new Vec2(center.x, center.y - 100), text: pick});
+        const luse = <Label>this.add.uiElement(UIElementType.LABEL, "control", {position: new Vec2(center.x, center.y - 50), text: use});
+        const litem = <Label>this.add.uiElement(UIElementType.LABEL, "control", {position: new Vec2(center.x, center.y), text: item});
+        const lswitchZ = <Label>this.add.uiElement(UIElementType.LABEL, "control", {position: new Vec2(center.x, center.y + 50), text: switchZ});
+        const lswitchX = <Label>this.add.uiElement(UIElementType.LABEL, "control", {position: new Vec2(center.x, center.y + 100), text: switchX});
+
+        lmove.textColor = Color.WHITE;
+        ldrop.textColor = Color.WHITE;
+        lpick.textColor = Color.WHITE;
+        luse.textColor = Color.WHITE;
+        litem.textColor = Color.WHITE;
+        lswitchZ.textColor = Color.WHITE;
+        lswitchX.textColor = Color.WHITE;
+
+        const controlBack = this.add.uiElement(UIElementType.BUTTON, "control", {position: new Vec2(center.x, center.y + 250), text: "Back"});
+        controlBack.size.set(200, 50);
+        controlBack.borderWidth = 2;
+        controlBack.borderColor = Color.WHITE;
+        controlBack.backgroundColor = Color.TRANSPARENT;
+        controlBack.onClickEventId = "menu";
     }
 
     updateScene(){
