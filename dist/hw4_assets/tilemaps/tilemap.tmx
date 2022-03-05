@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
  <editorsettings>
-  <export target="navmesh.js" format="js"/>
+  <export target="tilemap.js" format="js"/>
  </editorsettings>
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="tileset.png" width="128" height="128"/>
@@ -117,7 +117,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="2" name="Walls" width="50" height="50">
+ <layer id="2" name="Walls" width="50" height="50" visible="0">
   <properties>
    <property name="Collidable" type="bool" value="true"/>
   </properties>
