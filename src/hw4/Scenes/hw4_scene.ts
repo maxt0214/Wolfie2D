@@ -72,7 +72,7 @@ export default class hw4_scene extends Scene {
         // Load the tilemap
         // HOMEWORK 4 - TODO
         // Change this file to be your own tilemap
-        this.load.tilemap("level", "hw4_assets/tilemaps/cse380_hw4_tilejson.json");
+        this.load.tilemap("level", "hw4_assets/tilemaps/tilemap.json");
 
         // Load the scene info
         this.load.object("weaponData", "hw4_assets/data/weaponData.json");
