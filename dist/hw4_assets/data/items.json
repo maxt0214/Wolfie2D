@@ -2,37 +2,91 @@
     "items": [
         {
             "type": "healthpack",
-            "position": [440, 760]
+            "position": [392, 556]
         },
         {
             "type": "healthpack",
-            "position": [472, 760]
+            "position": [428, 1012]
         },
         {
             "type": "healthpack",
-            "position": [262, 151]
+            "position": [657, 1264]
+        },
+        {
+            "type": "healthpack",
+            "position": [848, 715]
+        },
+        {
+            "type": "healthpack",
+            "position": [1070, 946]
+        },
+        {
+            "type": "healthpack",
+            "position": [1455, 629]
+        },
+        {
+            "type": "healthpack",
+            "position": [1516, 1234]
+        },
+        {
+            "type": "healthpack",
+            "position": [1868, 596]
+        },
+        {
+            "type": "healthpack",
+            "position": [1873, 1296]
+        },
+        {
+            "type": "healthpack",
+            "position": [1390, 1783]
+        },
+        {
+            "type": "healthpack",
+            "position": [657, 1747]
+        },
+        {
+            "type": "healthpack",
+            "position": [203, 1715]
         },
         {
             "type": "weapon",
             "weaponType": "knife", 
-            "position": [840, 120]
+            "position": [1422, 1490]
         },
         {
             "type": "weapon",
             "weaponType": "knife", 
-            "position": [648, 120]
+            "position": [105, 1488]
         },
         {
-            "type": "healthpack",
-            "position": [264, 72]
+            "type": "weapon",
+            "weaponType": "knife", 
+            "position": [556, 559]
         },
         {
-            "type": "healthpack",
-            "position": [120, 280]
+            "type": "weapon",
+            "weaponType": "knife", 
+            "position": [972, 1236]
         },
         {
-            "type": "healthpack",
-            "position": [360, 360]
+            "type": "weapon",
+            "weaponType": "knife", 
+            "position": [1450, 788]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "knife", 
+            "position": [1453, 465]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "knife", 
+            "position": [1936, 750]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "knife", 
+            "position": [1390, 1846]
         },
         {
             "type": "weapon",
@@ -42,36 +96,102 @@
         {
             "type": "weapon",
             "weaponType": "pistol", 
-            "position": [136, 408]
-        },
-        {
-            "type": "weapon",
-            "weaponType": "knife", 
-            "position": [936, 584]
+            "position": [73, 397]
         },
         {
             "type": "weapon",
             "weaponType": "pistol", 
-            "position": [904, 744]
-        },
-        {
-            "type": "weapon",
-            "weaponType": "knife", 
-            "position": [920, 872]
-        },
-        {
-            "type": "healthpack",
-            "position": [296, 824]
-        },
-        {
-            "type": "weapon",
-            "weaponType": "knife", 
-            "position": [120, 824]
+            "position": [269, 433]
         },
         {
             "type": "weapon",
             "weaponType": "pistol", 
-            "position": [56, 984]
+            "position": [299, 941]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [269, 1264]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [1004, 947]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [1166, 947]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [1934, 463]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [1931, 591]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [1518, 1002]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [1924, 1297]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [1586, 1840]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [1191, 1840]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [652, 1805]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [236, 1750]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "pistol", 
+            "position": [183, 1750]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "laserGun", 
+            "position": [428, 1294]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "laserGun", 
+            "position": [1518, 627]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "laserGun", 
+            "position": [1229, 1231]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "laserGun", 
+            "position": [1390, 1898]
+        },
+        {
+            "type": "weapon",
+            "weaponType": "laserGun", 
+            "position": [624, 1873]
         }
     ]
 }

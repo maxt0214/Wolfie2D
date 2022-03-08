@@ -3,6 +3,7 @@ import GoapAction from "../../../Wolfie2D/DataTypes/Interfaces/GoapAction";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Emitter from "../../../Wolfie2D/Events/Emitter";
 import GameNode from "../../../Wolfie2D/Nodes/GameNode";
+import Timer from "../../../Wolfie2D/Timing/Timer";
 import EnemyAI from "../EnemyAI";
 
 // HOMEWORK 4 - TODO
@@ -21,6 +22,21 @@ export default class Berserk extends GoapAction {
     }
 
     performAction(statuses: Array<string>, actor: StateMachineGoapAI, deltaT: number, target?: StateMachineGoapAI): Array<string> {
+        if(this.checkPreconditions(statuses)) {
+            let enemy = <EnemyAI>actor;
+
+            //If the player is out of sight, don't bother attacking
+            if (enemy.getPlayerPosition() == null){
+                return null;
+            }
+
+            enemy.speed *= 1.5;
+            enemy.weapon.type.damage *= 2.0;
+            enemy.weapon.type.cooldown /= 2.0;
+
+            console.log(`Enemy berserk with speed: ${enemy.speed} Damage: ${enemy.weapon.type.damage} CD: ${enemy.weapon.cooldownTimer}`);
+            return this.effects;
+        }
         return null;
     }
 

@@ -74,7 +74,6 @@ export default class MainMenu extends Scene {
             Add a controls screen here.
             Use the About screen as inspiration for how to do so.
             The controls screen should list all controls:
-
             WASD to move
             Q to drop an item
             E to pick up an item
@@ -82,9 +81,7 @@ export default class MainMenu extends Scene {
             1&2 to change items
             Z to switch to player 1
             X to switch to player 2
-
             You should also include a back button to return to the main menu.
-
             Additionally, on the main menu, you should be able to press a button to reach the controls screen.
         */
         //control button on the main menu

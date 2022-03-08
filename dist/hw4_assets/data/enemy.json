@@ -1,152 +1,264 @@
 {
-  "numEnemies": 21,
+  "numEnemies": 37,
   "enemies": [
     {
-      "position": [848, 624],
+      "position": [654, 1498],
       "mode": "patrol",
-      "route": [0, 1, 2, 3],
+      "route": [51,52],
       "health": 5,
-      "type": "gun_enemy"
+      "type": "knife_enemy"
     },
     {
-      "position": [988, 408],
+      "position": [75, 1495],
       "mode": "patrol",
-      "route": [4, 5, 6, 7, 8, 9, 10, 11],
+      "route": [48, 49, 50],
       "health": 8,
       "type": "knife_enemy"
     },
     {
-      "position": [516, 404],
-      "mode": "patrol",
-      "route": [11, 4, 5, 6, 7, 8, 9, 10],
+      "position": [47, 1236],
+      "mode": "guard",
+      "guardPosition": [47, 1236],
       "health": 5,
       "type": "gun_enemy"
     },
     {
-      "position": [648, 164],
+      "position": [50, 209],
       "mode": "patrol",
-      "route": [8, 9, 10, 11, 4, 5, 6, 7],
+      "route": [0, 1, 2],
       "health": 5,
-      "type": "knife_enemy"
+      "type": "pistol"
     },
     {
-      "position": [144, 768],
+      "position": [518, 274],
       "mode": "patrol",
-      "route": [12, 13, 14, 15],
+      "route": [0, 2, 3, 9],
       "health": 5,
       "type": "gun_enemy"
     },
     {
-      "position": [272, 768],
-      "mode": "patrol",
-      "route": [15, 12, 13, 14],
+      "position": [949, 146],
+      "mode": "guard",
+      "guardPosition": [949, 146],
       "health": 8,
+      "type": "laser"
+    },
+    {
+      "position": [1229, 271],
+      "mode": "patrol",
+      "route": [6, 7, 8, 9],
+      "health": 5,
+      "type": "pistol"
+    },
+    {
+      "position": [261, 468],
+      "mode": "patrol",
+      "route": [12, 10, 11],
+      "health": 5,
       "type": "knife_enemy"
     },
     {
-      "position": [216, 380],
+      "position": [266, 883],
       "mode": "patrol",
-      "route": [16, 17, 18, 19],
+      "route": [13, 14],
       "health": 5,
-      "type": "gun_enemy"
+      "type": "pistol"
     },
     {
-      "position": [460, 648],
+      "position": [622, 886],
       "mode": "patrol",
-      "route": [18, 19, 16, 17],
-      "health": 5,
-      "type": "knife_enemy"
-    },
-    {
-      "position": [432, 960],
-      "mode": "patrol",
-      "route": [20, 21, 22, 23, 24, 25],
-      "health": 5,
-      "type": "gun_enemy"
-    },
-    {
-      "position": [912, 864],
-      "mode": "patrol",
-      "route": [22, 23, 24, 25, 20, 21],
+      "route": [15, 16],
       "health": 8,
-      "type": "knife_enemy"
-    },
-    {
-      "position": [120, 248],
-      "mode": "guard",
-      "guardPosition": [120, 248],
-      "health": 5,
       "type": "gun_enemy"
     },
     {
-      "position": [176, 144],
+      "position": [619, 521],
       "mode": "guard",
-      "guardPosition": [176, 144],
+      "guardPosition": [619, 521],
       "health": 5,
-      "type": "knife_enemy"
+      "type": "pistol"
     },
     {
-      "position": [304, 114],
+      "position": [428, 690],
       "mode": "guard",
-      "guardPosition": [304, 114],
-      "health": 5,
-      "type": "gun_enemy"
-    },
-    {
-      "position": [688, 224],
-      "mode": "guard",
-      "guardPosition": [688, 224],
+      "guardPosition": [428, 690],
       "health": 8,
+      "type": "laser"
+    },
+    {
+      "position": [821, 498],
+      "mode": "patrol",
+      "route": [17, 27, 28, 29, 30, 29, 28, 27],
+      "health": 5,
+      "type": "pistol"
+    },
+    {
+      "position": [1390, 596],
+      "mode": "guard",
+      "guardPosition": [1390, 596],
+      "health": 10,
       "type": "knife_enemy"
     },
     {
-      "position": [816, 224],
+      "position": [1448, 465],
       "mode": "guard",
-      "guardPosition": [816, 224],
+      "guardPosition": [1448, 465],
+      "health": 10,
+      "type": "knife_enemy"
+    },
+    {
+      "position": [1528, 594],
+      "mode": "guard",
+      "guardPosition": [1528, 594],
+      "health": 10,
+      "type": "knife_enemy"
+    },
+    {
+      "position": [1453, 785],
+      "mode": "guard",
+      "guardPosition": [1453, 785],
+      "health": 10,
+      "type": "knife_enemy"
+    },
+    {
+      "position": [1067, 949],
+      "mode": "patrol",
+      "route": [35, 36, 37, 38, 39, 40],
       "health": 5,
       "type": "gun_enemy"
     },
     {
-      "position": [752, 64],
-      "mode": "guard",
-      "guardPosition": [752, 64],
-      "health": 5,
-      "type": "knife_enemy"
-    },
-    {
-      "position": [968, 472],
-      "mode": "guard",
-      "guardPosition": [968, 472],
+      "position": [1067, 1229],
+      "mode": "patrol",
+      "route": [41, 42, 43],
       "health": 5,
       "type": "gun_enemy"
     },
     {
-      "position": [504, 456],
+      "position": [1304, 1236],
       "mode": "guard",
-      "guardPosition": [504, 456],
+      "guardPosition": [1304, 1236],
+      "health": 5,
+      "type": "pistol"
+    },
+    {
+      "position": [1518, 1229],
+      "mode": "guard",
+      "guardPosition": [1518, 1229],
+      "health": 7,
+      "type": "laser"
+    },
+    {
+      "position": [1810, 100],
+      "mode": "patrol",
+      "route": [4, 5, 58, 57],
+      "health": 5,
+      "type": "laser"
+    },
+    {
+      "position": [1843, 468],
+      "mode": "guard",
+      "guardPosition": [1843, 468],
+      "health": 4,
+      "type": "gun_enemy"
+    },
+    {
+      "position": [1994, 470],
+      "mode": "guard",
+      "guardPosition": [1994, 470],
+      "health": 5,
+      "type": "pistol"
+    },
+    {
+      "position": [1936, 634],
+      "mode": "guard",
+      "guardPosition": [1936, 634],
+      "health": 5,
+      "type": "laser"
+    },
+    {
+      "position": [1868, 763],
+      "mode": "guard",
+      "guardPosition": [1868, 763],
+      "health": 5,
+      "type": "laser"
+    },
+    {
+      "position": [1485, 1012],
+      "mode": "patrol",
+      "route": [63, 65, 66],
       "health": 8,
-      "type": "knife_enemy"
+      "type": "laser"
     },
     {
-      "position": [360, 344],
+      "position": [1236, 828],
+      "mode": "patrol",
+      "route": [67, 68, 69],
+      "health": 5,
+      "type": "pistol"
+    },
+    {
+      "position": [1908, 1354],
       "mode": "guard",
-      "guardPosition": [360, 344],
+      "guardPosition": [1908, 1354],
       "health": 5,
       "type": "gun_enemy"
     },
     {
-      "position": [80, 704],
-      "mode": "guard",
-      "guardPosition": [80, 704],
-      "health": 5,
-      "type": "knife_enemy"
+      "position": [1631, 1778],
+      "mode": "patrol",
+      "route": [72, 71],
+      "health": 6,
+      "type": "pistol"
     },
     {
-      "position": [336, 704],
+      "position": [1506, 1921],
       "mode": "guard",
-      "guardPosition": [336, 704],
+      "guardPosition": [1506, 1921],
+      "health": 7,
+      "type": "laser"
+    },
+    {
+      "position": [1259, 1788],
+      "mode": "guard",
+      "guardPosition": [1259, 1788],
       "health": 5,
       "type": "gun_enemy"
+    },
+    {
+      "position": [1143,1866],
+      "mode": "guard",
+      "guardPosition": [1143,1866],
+      "health": 5,
+      "type": "pistol"
+    },
+    {
+      "position": [659, 1783],
+      "mode": "guard",
+      "guardPosition": [659, 1783],
+      "health": 6,
+      "type": "pistol"
+    },
+    {
+      "position": [717, 1883],
+      "mode": "guard",
+      "guardPosition": [717, 1883],
+      "health": 8,
+      "type": "gun_enemy"
+    },
+    {
+      "position": [375, 1798],
+      "mode": "patrol",
+      "route": [75, 76, 77],
+      "health": 7,
+      "type": "pistol"
+    },
+    {
+      "position": [198, 1893],
+      "mode": "patrol",
+      "route": [78, 79],
+      "health": 30,
+      "type": "laser"
     }
   ]
 }

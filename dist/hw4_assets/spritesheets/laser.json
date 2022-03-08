@@ -1,6 +1,6 @@
 {
     "name": "TopdownEnemy3",
-    "spriteSheetImage": "custom_enemy2.png",
+    "spriteSheetImage": "laser.png",
     "spriteWidth": 16,
     "spriteHeight": 16,
     "columns": 5,

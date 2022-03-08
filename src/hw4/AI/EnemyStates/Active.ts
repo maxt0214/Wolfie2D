@@ -47,7 +47,9 @@ export default class Active extends EnemyState {
      * You'll have to implement this function so you can use retreatPath in the Retreat action.
      */
     pickRetreatPath(pathToPlayer: NavigationPath){
-
+        var dir = pathToPlayer.getMoveDirection(this.owner).scale(-1,-1)
+        var dest = this.owner.position.clone().add(dir.scale(20,20))
+        this.parent.retreatPath = this.owner.getScene().getNavigationManager().getPath(hw4_Names.NAVMESH, this.owner.position, dest, true);
     }
 
     update(deltaT: number): void {

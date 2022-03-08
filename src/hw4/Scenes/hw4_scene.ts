@@ -64,8 +64,8 @@ export default class hw4_scene extends Scene {
 
         this.load.spritesheet("gun_enemy", "hw4_assets/spritesheets/gun_enemy.json");
         this.load.spritesheet("knife_enemy", "hw4_assets/spritesheets/knife_enemy.json");
-        this.load.spritesheet("custom_enemy1", "hw4_assets/spritesheets/custom_enemy1.json");
-        this.load.spritesheet("custom_enemy2", "hw4_assets/spritesheets/custom_enemy2.json");
+        this.load.spritesheet("pistol", "hw4_assets/spritesheets/pistol.json");
+        this.load.spritesheet("laser", "hw4_assets/spritesheets/laser.json");
 
         this.load.spritesheet("slice", "hw4_assets/spritesheets/slice.json");
 
@@ -195,7 +195,7 @@ export default class hw4_scene extends Scene {
         let health2 = (<BattlerAI>this.playerCharacters[1]._ai).health;
 
         //If both are dead, game over
-        if(health1 === 0 && health2 === 0){
+        if(health1 <= 0 && health2 <= 0){
             this.sceneManager.changeToScene(GameOver);
         }
 
@@ -323,13 +323,13 @@ export default class hw4_scene extends Scene {
     initializePlayer(): void {
         // Create the inventory
         let inventory = new InventoryManager(this, 2, "inventorySlot", new Vec2(16, 16), 4, "slots1", "items1");
-        let startingWeapon = this.createWeapon("knife");
+        let startingWeapon = this.createWeapon("weak_pistol");
         inventory.addItem(startingWeapon);
 
         // Create the players
         this.playerCharacters = Array(2);
         this.playerCharacters[0] = this.add.animatedSprite("player1", "primary");
-        this.playerCharacters[0].position.set(4*8, 62*8);
+        this.playerCharacters[0].position.set(47 * 16, 47 * 16);
         this.playerCharacters[0].addPhysics(new AABB(Vec2.ZERO, new Vec2(8, 8)));
         //First player is melee based, starts off with a knife and is short ranged
         this.playerCharacters[0].addAI(PlayerController,
@@ -339,18 +339,18 @@ export default class hw4_scene extends Scene {
                 inventory: inventory,
                 items: this.items,
                 inputEnabled: true,
-                range: 30
+                range: 80
             });
         this.playerCharacters[0].animation.play("IDLE");
 
 
         inventory = new InventoryManager(this, 2, "inventorySlot", new Vec2(16, 32), 4, "slots2", "items2");
-        startingWeapon = this.createWeapon("weak_pistol");
+        startingWeapon = this.createWeapon("pistol");
         inventory.addItem(startingWeapon);
 
         //Second player is ranged based, long range and starts with pistol
         this.playerCharacters[1] = this.add.animatedSprite("player2", "primary");
-        this.playerCharacters[1].position.set(2*8, 62*8);
+        this.playerCharacters[1].position.set(46 * 16, 47 * 16);
         this.playerCharacters[1].addPhysics(new AABB(Vec2.ZERO, new Vec2(8, 8)));
         this.playerCharacters[1].addAI(PlayerController,
             {
@@ -478,11 +478,23 @@ export default class hw4_scene extends Scene {
          */
         let actionsGun = [new AttackAction(3, [hw4_Statuses.IN_RANGE], [hw4_Statuses.REACHED_GOAL]),
         new Move(2, [], [hw4_Statuses.IN_RANGE], {inRange: 100}),
-        new Retreat(1, [hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_RETREAT], [hw4_Statuses.REACHED_GOAL], {retreatDistance: 200})];
+        new Retreat(1, [hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_RETREAT], [hw4_Statuses.REACHED_GOAL], {retreatDistance: 200}),
+        new Berserk(2,[hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_BERSERK],[hw4_Statuses.REACHED_GOAL])];
 
         let actionKnife = [new AttackAction(3, [hw4_Statuses.IN_RANGE], [hw4_Statuses.REACHED_GOAL]),
         new Move(2, [], [hw4_Statuses.IN_RANGE], {inRange: 20}),
-        new Retreat(4, [hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_RETREAT], [hw4_Statuses.REACHED_GOAL], {retreatDistance: 200})];
+        new Retreat(4, [hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_RETREAT], [hw4_Statuses.REACHED_GOAL], {retreatDistance: 200}),
+        new Berserk(1,[hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_BERSERK],[hw4_Statuses.REACHED_GOAL])];
+
+        let pistolGunner = [new AttackAction(4, [hw4_Statuses.IN_RANGE], [hw4_Statuses.REACHED_GOAL]),
+        new Move(2, [], [hw4_Statuses.IN_RANGE], {inRange: 100}),
+        new Retreat(2, [hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_RETREAT], [hw4_Statuses.REACHED_GOAL], {retreatDistance: 220}),
+        new Berserk(4,[hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_BERSERK],[hw4_Statuses.REACHED_GOAL])];
+
+        let laserGunner = [new AttackAction(5, [hw4_Statuses.IN_RANGE], [hw4_Statuses.REACHED_GOAL]),
+        new Move(2, [], [hw4_Statuses.IN_RANGE], {inRange: 120}),
+        new Retreat(2, [hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_RETREAT], [hw4_Statuses.REACHED_GOAL], {retreatDistance: 250}),
+        new Berserk(4,[hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_BERSERK],[hw4_Statuses.REACHED_GOAL])];
 
 
         // HOMEWORK 4 - TODO
@@ -501,9 +513,9 @@ export default class hw4_scene extends Scene {
          * 
          * Use these functions below to make sure your AI are taking the proper actions given certain situations.
          */
-        /*let resultGun = this.generateGoapPlans(actionsGun, [hw4_Statuses.IN_RANGE, hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_BERSERK, hw4_Statuses.CAN_RETREAT], hw4_Statuses.REACHED_GOAL);
+        let resultGun = this.generateGoapPlans(actionsGun, [hw4_Statuses.IN_RANGE, hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_BERSERK, hw4_Statuses.CAN_RETREAT], hw4_Statuses.REACHED_GOAL);
         let resultKnife = this.generateGoapPlans(actionKnife, [hw4_Statuses.IN_RANGE, hw4_Statuses.LOW_HEALTH, hw4_Statuses.CAN_BERSERK, hw4_Statuses.CAN_RETREAT], hw4_Statuses.REACHED_GOAL);
-        this.testGoapPlans(resultGun, resultKnife, null, null);*/
+        this.testGoapPlans(resultGun, resultKnife, null, null);
 
         // Initialize the enemies
         for(let i = 0; i < enemyData.numEnemies; i++){
@@ -551,11 +563,15 @@ export default class hw4_scene extends Scene {
                 actions = actionKnife;
                 range = 20;
             }
-            else if (data.type === "custom_enemy1") {
-                //ADD CODE HERE
+            else if (data.type === "pistol") {
+                weapon = this.createWeapon("pistol")
+                actions = pistolGunner;
+                range = 100;
             }
-            else if (data.type === "custom_enemy2") {
-                //ADD CODE HERE
+            else if (data.type === "laser") {
+                weapon = this.createWeapon("laserGun")
+                actions = laserGunner;
+                range = 120;
             }
 
             let enemyOptions = {
